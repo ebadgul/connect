@@ -18,6 +18,7 @@ import com.parse.ParseUser;
 
 import www.wit.ie.connect.MainActivity;
 import www.wit.ie.connect.R;
+import www.wit.ie.connect.chat.MessageService;
 
 public class Login extends AppCompatActivity {
 
@@ -29,6 +30,8 @@ public class Login extends AppCompatActivity {
     protected String _password;
     protected Button _loginBtn;
 
+    private Intent intent;
+    private Intent serviceIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,15 +43,14 @@ public class Login extends AppCompatActivity {
 //        Parse.enableLocalDatastore(this);
 //        Parse.initialize(this);
 
+        intent = new Intent(getApplicationContext(), MainActivity.class);
+        serviceIntent = new Intent(getApplicationContext(), MessageService.class);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        if (currentUser != null){
+            startActivity(intent);
+            startService(serviceIntent);
+        }
 
 
         username = (EditText) findViewById(R.id.lg_name);
@@ -67,8 +69,9 @@ public class Login extends AppCompatActivity {
                     public void done(ParseUser parseUser, ParseException e) {
 
                         if(parseUser != null){
-                            Intent intent = new Intent(Login.this, MainActivity.class);
                             startActivity(intent);
+                            startService(serviceIntent);
+
                             Toast.makeText(getApplicationContext(),
                                     "Successfully Logged in",
                                     Toast.LENGTH_LONG).show();
@@ -90,6 +93,11 @@ public class Login extends AppCompatActivity {
 
 
 
+    }
+
+    public void onDestroy(){
+        stopService(new Intent(this, MessageService.class));
+        super.onDestroy();
     }
 
     public void linkToSignup(View view){

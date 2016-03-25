@@ -18,17 +18,21 @@ import com.parse.SignUpCallback;
 
 import www.wit.ie.connect.MainActivity;
 import www.wit.ie.connect.R;
+import www.wit.ie.connect.chat.MessageService;
 
 public class Signup extends AppCompatActivity {
 
-    protected EditText username;
-    protected EditText password;
-    protected EditText email;
+    private EditText username;
+    private EditText password;
+    private EditText email;
 
-    protected String _username;
-    protected String _password;
-    protected String _email;
-    protected Button signupBtn;
+    private String _username;
+    private String _password;
+    private String _email;
+    private Button signupBtn;
+
+    private Intent intent;
+    private Intent serviceIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,14 +41,15 @@ public class Signup extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
+        intent = new Intent(getApplicationContext(), MainActivity.class);
+        serviceIntent = new Intent(getApplicationContext(), MessageService.class);
+
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        if (currentUser != null){
+            startActivity(intent);
+            startService(serviceIntent);
+        }
 
 
 
@@ -61,30 +66,33 @@ public class Signup extends AppCompatActivity {
                 _password = password.getText().toString();
                 _email = email.getText().toString();
 
-                if (_username.equals("")&& _password.equals("")){
+                if (_username.equals("") && _password.equals("")) {
                     Toast.makeText(getApplicationContext(),
                             "Please complete the sign up form",
                             Toast.LENGTH_LONG).show();
 
-                }else {
+                } else {
                     ParseUser user = new ParseUser();
                     user.setUsername(_username);
                     user.setPassword(_password);
                     user.setEmail(_email);
 
                     Log.v("namee", "" + _username);
-                    Log.v("passwordd",""+_password);
-                    Log.v("Emaillllll",""+_email);
+                    Log.v("passwordd", "" + _password);
+                    Log.v("Emaillllll", "" + _email);
 
                     user.signUpInBackground(new SignUpCallback() {
                         @Override
                         public void done(ParseException e) {
-                            if (e == null){
-                                Toast.makeText(getApplicationContext(),"You'r Signed up",Toast.LENGTH_LONG).show();
+                            if (e == null) {
+                                startActivity(intent);
+                                startService(serviceIntent);
+
+                                Toast.makeText(getApplicationContext(), "You'r Signed up", Toast.LENGTH_LONG).show();
 //                                startActivity(new Intent(Signup.this, MainActivity.class));
 //                                finish();
-                            }else {
-                                Toast.makeText(getApplicationContext(),"Something is wrong", Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Something is wrong", Toast.LENGTH_LONG).show();
                             }
                         }
                     });
@@ -96,10 +104,14 @@ public class Signup extends AppCompatActivity {
 
 
     }
+    public void onDestroy(){
+        stopService(new Intent(this, MessageService.class));
+        super.onDestroy();
+    }
 
-    public void linkToSignin(View view){
+    /*public void linkToSignin(View view){
         Intent intent = new Intent(Signup.this, Login.class);
         startActivity(intent);
-    }
+    }*/
 
 }
