@@ -1,5 +1,6 @@
 package www.wit.ie.connect.college;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -31,6 +32,7 @@ public class Projects extends Fragment {
             public void onClick(View view) {
                 Snackbar.make(view, "Ebad with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                startActivity(new Intent(getContext(), UniActivities.class));
             }
         });
 
