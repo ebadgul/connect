@@ -25,7 +25,7 @@ public class Projects extends Fragment {
 //        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
 
-        FloatingActionButton fab = (FloatingActionButton) getView().findViewById(R.id.fab_project);
+        FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.fab_project);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
