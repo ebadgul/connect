@@ -4,10 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -23,8 +28,8 @@ import www.wit.ie.connect.chat.MessageService;
 public class Signup extends AppCompatActivity {
 
     private EditText username;
-    private EditText password;
     private EditText email;
+    private EditText password;
 
     private String _username;
     private String _password;
@@ -33,6 +38,9 @@ public class Signup extends AppCompatActivity {
 
     private Intent intent;
     private Intent serviceIntent;
+
+
+    private TextInputLayout inputLayoutName, inputLayoutEmail, inputLayoutPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,11 +60,21 @@ public class Signup extends AppCompatActivity {
         }
 
 
+        inputLayoutName = (TextInputLayout) findViewById(R.id.input_layout_name);
+        inputLayoutEmail = (TextInputLayout) findViewById(R.id.input_layout_email);
+        inputLayoutPassword = (TextInputLayout) findViewById(R.id.input_layout_password);
+
+
 
         username = (EditText) findViewById(R.id.sgup_name);
         password = (EditText) findViewById(R.id.sgup_password);
         email = (EditText) findViewById(R.id.sgup_email);
         signupBtn = (Button) findViewById(R.id.btn_signup);
+
+
+        username.addTextChangedListener(new MyTextWatcher(username));
+        email.addTextChangedListener(new MyTextWatcher(email));
+        password.addTextChangedListener(new MyTextWatcher(password));
 
 
         signupBtn.setOnClickListener(new View.OnClickListener() {
@@ -65,6 +83,8 @@ public class Signup extends AppCompatActivity {
                 _username = username.getText().toString();
                 _password = password.getText().toString();
                 _email = email.getText().toString();
+
+                submitForm();
 
                 if (_username.equals("") && _password.equals("")) {
                     Toast.makeText(getApplicationContext(),
@@ -85,8 +105,9 @@ public class Signup extends AppCompatActivity {
                         @Override
                         public void done(ParseException e) {
                             if (e == null) {
-                                startActivity(intent);
+                               startActivity(intent);
                                 startService(serviceIntent);
+
 
                                 Toast.makeText(getApplicationContext(), "You'r Signed up", Toast.LENGTH_LONG).show();
 //                                startActivity(new Intent(Signup.this, MainActivity.class));
@@ -104,14 +125,108 @@ public class Signup extends AppCompatActivity {
 
 
     }
+    public void linkToSignin(View view){
+        Intent intent = new Intent(Signup.this, Login.class);
+        startActivity(intent);
+    }
+
     public void onDestroy(){
         stopService(new Intent(this, MessageService.class));
         super.onDestroy();
     }
+//*******************************************************************************
+private void submitForm() {
+    if (!validateName()) {
+        return;
+    }
 
-    /*public void linkToSignin(View view){
-        Intent intent = new Intent(Signup.this, Login.class);
-        startActivity(intent);
-    }*/
+    if (!validateEmail()) {
+        return;
+    }
 
+    if (!validatePassword()) {
+        return;
+    }
+
+//    Toast.makeText(getApplicationContext(), "Thank You!", Toast.LENGTH_SHORT).show();
+}
+
+    private boolean validateName() {
+        if (username.getText().toString().trim().isEmpty()) {
+            inputLayoutName.setError(getString(R.string.err_msg_name));
+            requestFocus(username);
+            return false;
+        } else {
+            inputLayoutName.setErrorEnabled(false);
+        }
+
+        return true;
+    }
+
+    private boolean validateEmail() {
+        String emaill = email.getText().toString().trim();
+
+        if (emaill.isEmpty() || !isValidEmail(emaill)) {
+            inputLayoutEmail.setError(getString(R.string.err_msg_email));
+            requestFocus(email);
+            return false;
+        } else {
+            inputLayoutEmail.setErrorEnabled(false);
+        }
+
+        return true;
+    }
+
+    private boolean validatePassword() {
+        if (password.getText().toString().trim().isEmpty()) {
+            inputLayoutPassword.setError(getString(R.string.err_msg_password));
+            requestFocus(password);
+            return false;
+        } else {
+            inputLayoutPassword.setErrorEnabled(false);
+        }
+
+        return true;
+    }
+
+    private static boolean isValidEmail(String email) {
+        return !TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
+
+    private void requestFocus(View view) {
+        if (view.requestFocus()) {
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
+    }
+
+    private class MyTextWatcher implements TextWatcher {
+
+        private View view;
+
+        private MyTextWatcher(View view) {
+            this.view = view;
+        }
+
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
+
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
+
+        public void afterTextChanged(Editable editable) {
+            switch (view.getId()) {
+                case R.id.sgup_name:
+                    validateName();
+                    break;
+                case R.id.sgup_email:
+                    validateEmail();
+                    break;
+                case R.id.sgup_password:
+                    validatePassword();
+                    break;
+            }
+        }
+    }
+
+//*******************************************************************************
 }

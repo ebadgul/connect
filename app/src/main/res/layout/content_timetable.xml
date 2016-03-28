@@ -10,7 +10,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:configChanges="keyboardHidden|orientation|screenSize"
-    tools:context=".upload.Timetable"
+    tools:context=".college.Timetable"
     tools:showIn="@layout/activity_timetable">
 
 

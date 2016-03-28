@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="www.wit.ie.connect.upload.UniActivities">
+    tools:context="www.wit.ie.connect.college.UniActivities">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"

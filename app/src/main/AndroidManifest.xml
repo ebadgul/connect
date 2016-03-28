@@ -3,7 +3,6 @@
     package="www.wit.ie.connect"
     android:configChanges="orientation|keyboardHidden">
 
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -11,15 +10,13 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
-
-
     <uses-feature
         android:glEsVersion="0x00020000"
-        android:required="true"/>
+        android:required="true" />
     <!--
       IMPORTANT: Change "com.parse.starter.permission.C2D_MESSAGE" in the lines below
       to match your app's package name + ".permission.C2D_MESSAGE".
@@ -87,12 +84,12 @@
             android:value="CmNQGyW1sxJvmPIVm3s12AxUFri7UAdO0QHZlFtm" />
 
         <activity
-            android:name=".upload.Timetable"
+            android:name=".college.Timetable"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_activity_timetable"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".upload.UniActivities"
+            android:name=".college.UniActivities"
             android:label="@string/title_activity_uni_activities"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -110,9 +107,7 @@
         <activity
             android:name=".places.GooglePlaces"
             android:label="@string/title_activity_google_places"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-
-
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -121,6 +116,10 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
+        <activity
+            android:name=".college.Projects"
+            android:label="@string/title_activity_projects"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

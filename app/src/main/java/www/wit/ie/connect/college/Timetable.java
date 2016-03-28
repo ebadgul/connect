@@ -1,4 +1,4 @@
-package www.wit.ie.connect.upload;
+package www.wit.ie.connect.college;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -24,7 +24,6 @@ import android.widget.Toast;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
