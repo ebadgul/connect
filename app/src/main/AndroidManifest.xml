@@ -117,6 +117,10 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
+            android:name=".college.SingleItemView"
+            android:label="@string/title_activity_single_item_view"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".college.Projects"
             android:label="@string/title_activity_projects"
             android:theme="@style/AppTheme.NoActionBar"></activity>

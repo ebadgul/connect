@@ -33,6 +33,7 @@
         <item>Other</item>
     </string-array>
 
+    <string name="namelabel">"Name : "</string>
 
     <string name="hint_name">Full Name</string>
     <string name="hint_email">Email</string>
@@ -62,4 +63,6 @@
     <string name="default_place_text">Select a place to get started</string>
     <string name="google_api_key">AIzaSyB3h5y3WhDfL9mGnb6O1DAJJoMvjMjReLE</string>
     <string name="title_activity_projects">Projects</string>
+    <string name="title_activity_project">Project</string>
+    <string name="title_activity_single_item_view">SingleItemView</string>
 </resources>

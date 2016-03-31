@@ -17,7 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import www.wit.ie.connect.chat.ListUsersActivity;
-import www.wit.ie.connect.college.Projects;
+import www.wit.ie.connect.college.ProjectsFragment;
 import www.wit.ie.connect.data.Login;
 import www.wit.ie.connect.places.GooglePlaces;
 import www.wit.ie.connect.college.Timetable;
@@ -153,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
                 case 1:
                     return new ListUsersActivity();
                 case 2:
-                    return new Projects();
+                    return new ProjectsFragment();
                 default:
                     return null;
             }
