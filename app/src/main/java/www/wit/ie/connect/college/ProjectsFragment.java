@@ -128,8 +128,7 @@ public class ProjectsFragment extends Fragment {
                     // Send single item click data to SingleItemView Class
                     Intent i = new Intent(getActivity(), SingleItemView.class);
                     // Pass data "name" followed by the position
-                    i.putExtra("subject", ob.get(position).getString("subject")
-                            .toString());
+                    i.putExtra("subject", ob.get(position).getString("subject").toString());
                     // Open SingleItemView.java Activity
                     startActivity(i);
                 }

@@ -6,15 +6,18 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+
+import com.google.android.gms.games.GamesMetadata;
 
 import www.wit.ie.connect.R;
 
 public class SingleItemView extends AppCompatActivity {
 
-    private TextView txtname;
-    private String name;
+     TextView txtname;
+     String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,11 +27,12 @@ public class SingleItemView extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
-        Intent intent = new Intent();
+        Intent intent = getIntent();
         name =  intent.getStringExtra("subject");
         txtname = (TextView) findViewById(R.id.name);
         txtname.setText(name);
 
+        Log.v("nameee!!1", ""+txtname);
 
 
        /* FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
