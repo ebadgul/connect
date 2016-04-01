@@ -16,8 +16,11 @@ import www.wit.ie.connect.R;
 
 public class SingleItemView extends AppCompatActivity {
 
-     TextView txtname;
-     String name;
+    TextView txtname;
+    String name;
+
+    TextView txtType;
+    String type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +31,14 @@ public class SingleItemView extends AppCompatActivity {
 
 
         Intent intent = getIntent();
-        name =  intent.getStringExtra("subject");
+        name = intent.getStringExtra("subject");
+        type = intent.getStringExtra("type");
         txtname = (TextView) findViewById(R.id.name);
+        txtType = (TextView) findViewById(R.id.type);
         txtname.setText(name);
+        txtType.setText(type);
 
-        Log.v("nameee!!1", ""+txtname);
+        Log.v("nameee!!1", "" + txtname);
 
 
        /* FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

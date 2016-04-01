@@ -16,12 +16,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.parse.ParseUser;
+
 import www.wit.ie.connect.chat.ListUsersActivity;
 import www.wit.ie.connect.college.ProjectsFragment;
 import www.wit.ie.connect.data.Login;
 import www.wit.ie.connect.places.GooglePlaces;
 import www.wit.ie.connect.college.Timetable;
 import www.wit.ie.connect.college.UniActivities;
+import www.wit.ie.connect.users.UserProfile;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -87,9 +90,16 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(this, Timetable.class));
         }else if (id == R.id.action_settings){
             startActivity(new Intent(this, UniActivities.class));
-        }else if (id == R.id.action_logout){
+        }else if (id ==  R.id.user_profile){
+            startActivity(new Intent(this, UserProfile.class));
+        }/*else if (id == R.id.action_logout){
+            ParseUser.logOut();
             startActivity(new Intent(this, Login.class));
-        }
+//            Intent intent = new Intent(this, Login.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//            startActivity(intent);
+            finish();
+        }*/
 
 
         return super.onOptionsItemSelected(item);

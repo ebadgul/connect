@@ -47,14 +47,11 @@
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2"
-        android:layout_marginTop="50dp"
         android:id="@+id/activityType"
         android:spinnerMode="dropdown"
         android:ems="10"
         android:clickable="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/textView2"
         android:layout_toEndOf="@+id/textView" />
 
     <!--end of 2nd one-->

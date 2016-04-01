@@ -13,12 +13,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.GridView;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import www.wit.ie.connect.R;
@@ -30,17 +35,15 @@ import static www.wit.ie.connect.college.Projects.*;
  */
 public class ProjectsFragment extends Fragment {
 
+    private TextView type, title;
 
-    ListView listview;
-    List<ParseObject> ob;
-    ProgressDialog mProgressDialog;
-    ArrayAdapter<String> adapter;
+    private ListView listview, listView2;
+    private List<ParseObject> ob;
+    private ProgressDialog mProgressDialog;
+    private ArrayAdapter<String> adapter;
 
-    private View fragmentView;
 
-//    OuterClass.InnerClass oi = new OuterClass().new InnerClass();
-//    Projects.RemoteDataTask projects = new Projects().new RemoteDataTask();
-//    Projects.RemoteDataTask projects = new Projects.RemoteDataTask();
+//    SimpleAdapter
 
     public ProjectsFragment() {
     }
@@ -53,13 +56,6 @@ public class ProjectsFragment extends Fragment {
 
         new RemoteDataTask().execute();
 
-//        ForecastFragment.FetchWeatherTask weatherTask = new ForecastFragment.FetchWeatherTask();
-//        Inside.Deep id = i.new Deep();
-
-//        new projects.RemoteDataTask().execute();
-//        new Projects().new RemoteDataTask();
-
-//        projects.onPostExecute();
 
         FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -74,7 +70,8 @@ public class ProjectsFragment extends Fragment {
         return v;
 
     }
-       // RemoteDataTask AsyncTask
+
+    // RemoteDataTask AsyncTask
     public class RemoteDataTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
@@ -82,7 +79,7 @@ public class ProjectsFragment extends Fragment {
             // Create a progressdialog
             mProgressDialog = new ProgressDialog(getActivity());
             // Set progressdialog title
-            mProgressDialog.setTitle("Parse.com Simple ListView Tutorial");
+            mProgressDialog.setTitle("Loading...");
             // Set progressdialog message
             mProgressDialog.setMessage("Loading...");
             mProgressDialog.setIndeterminate(false);
@@ -109,16 +106,26 @@ public class ProjectsFragment extends Fragment {
         protected void onPostExecute(Void result) {
             // Locate the listview in listview_main.xml
             listview = (ListView) getView().findViewById(R.id.listview);
+
+//            listView2 = (ListView) getView().findViewById(R.id.listview2);
+//            title = (TextView) getView().findViewById(R.id.title);
+//            listView2 = (ListView) getView().findViewById(R.id.listview2);
+
             // Pass the results into an ArrayAdapter
-            adapter = new ArrayAdapter<String>(getActivity(),
-                    R.layout.listview_item);
+            adapter = new ArrayAdapter<String>(getActivity(), R.layout.listview_item);
+
+
+
             // Retrieve object "name" from Parse.com database
             for (ParseObject connect : ob) {
                 adapter.add((String) connect.get("subject"));
+//                adapter.add((String) connect.get("type"));
             }
 
             // Binds the Adapter to the ListView
             listview.setAdapter(adapter);
+//            listView2.setAdapter(adapter);
+//            type.setAdapter()
             // Close the progressdialog
             mProgressDialog.dismiss();
             // Capture button clicks on ListView items
@@ -129,6 +136,7 @@ public class ProjectsFragment extends Fragment {
                     Intent i = new Intent(getActivity(), SingleItemView.class);
                     // Pass data "name" followed by the position
                     i.putExtra("subject", ob.get(position).getString("subject").toString());
+                    i.putExtra("type", ob.get(position).getString("type".toString()));
                     // Open SingleItemView.java Activity
                     startActivity(i);
                 }
