@@ -15,7 +15,7 @@
     <string name="title_activity_timetable">Timetable</string>
     <string name="uploadBtn">Save</string>
     <string name="uploadOne">Upload</string>
-    <string name="title_activity_uni_activities">UniActivities</string>
+    <string name="title_activity_uni_activities">New Event</string>
     <string name="module">Module :</string>
     <string name="type">Type:</string>
 
@@ -68,4 +68,5 @@
     <string name="title_activity_single_item_view">SingleItemView</string>
     <string name="title_activity_user_profile">Your Profile</string>
     <string name="deletePBtn">delete Profile</string>
+    <string name="due">Due:</string>
 </resources>

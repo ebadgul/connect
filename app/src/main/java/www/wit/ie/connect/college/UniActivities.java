@@ -1,13 +1,17 @@
 package www.wit.ie.connect.college;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
+import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -15,12 +19,15 @@ import android.widget.Toast;
 
 import com.parse.ParseObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import www.wit.ie.connect.R;
 
-public class UniActivities extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class UniActivities extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
 
     private EditText subject, title, worth;
@@ -28,12 +35,28 @@ public class UniActivities extends AppCompatActivity implements AdapterView.OnIt
     private Button _saveBtn;
     private String item;
 
+
+
+
+    private EditText fromDateEtxt;
+//    private EditText toDateEtxt;
+    private DatePickerDialog fromDatePickerDialog;
+//    private DatePickerDialog toDatePickerDialog;
+    private SimpleDateFormat dateFormatter;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_uni_activities);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        // datePicker
+        dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+        findViewsById();
+        setDateTimeField();
+
 
         // Spinner element
         Spinner spinner = (Spinner) findViewById(R.id.activityType);
@@ -103,20 +126,42 @@ public class UniActivities extends AppCompatActivity implements AdapterView.OnIt
     public void onNothingSelected(AdapterView<?> arg0) {
         // TODO Auto-generated method stub
 
-
-
 //        List<ParseObject> po =  listView = (ListView) listView.findViewById(R.id.listview);
 //        ArrayAdapter<String> adapter = adapter = new ArrayAdapter<String>(UniActivities.this, R.layout.listview_item);
 
 
 
     }
+    // datePicker start
 
+    private void findViewsById() {
+        fromDateEtxt = (EditText) findViewById(R.id.etxt_fromdate);
+        fromDateEtxt.setInputType(InputType.TYPE_NULL);
+        fromDateEtxt.requestFocus();
 
+    }
 
-   /* public void onSave(View view){
-        startActivity(new Intent(UniActivities.this, Project.class));
-    }*/
+    private void setDateTimeField() {
+        fromDateEtxt.setOnClickListener(this);
 
+        Calendar newCalendar = Calendar.getInstance();
+        fromDatePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
 
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, monthOfYear, dayOfMonth);
+                fromDateEtxt.setText(dateFormatter.format(newDate.getTime()));
+            }
+
+        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+
+    }
+
+    public void onClick(View view) {
+        if(view == fromDateEtxt) {
+            fromDatePickerDialog.show();
+        }
+    }
+
+    // datePicker end
 }
