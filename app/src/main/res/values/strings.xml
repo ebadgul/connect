@@ -69,4 +69,6 @@
     <string name="title_activity_user_profile">Your Profile</string>
     <string name="deletePBtn">delete Profile</string>
     <string name="due">Due:</string>
+    <string name="details" />
+    <string name="mdetails">More details about the upcoming event here.</string>
 </resources>

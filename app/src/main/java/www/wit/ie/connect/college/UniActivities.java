@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -22,6 +23,7 @@ import com.parse.ParseObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -30,8 +32,8 @@ import www.wit.ie.connect.R;
 public class UniActivities extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
 
-    private EditText subject, title, worth;
-    private String _subject, _title, _worth;
+    private EditText subject, title, worth, details;
+    private String _subject, _title, _worth, _date, _details;
     private Button _saveBtn;
     private String item;
 
@@ -85,6 +87,7 @@ public class UniActivities extends AppCompatActivity implements AdapterView.OnIt
         subject = (EditText) findViewById(R.id.subject_input);
         title = (EditText) findViewById(R.id.title_input);
         worth = (EditText) findViewById(R.id.worth_input);
+        details = (EditText) findViewById(R.id.details);
         _saveBtn = (Button) findViewById(R.id.save_input);
 
         _saveBtn.setOnClickListener(new View.OnClickListener() {
@@ -94,8 +97,10 @@ public class UniActivities extends AppCompatActivity implements AdapterView.OnIt
                 _subject = subject.getText().toString();
                 _title = title.getText().toString();
                 _worth = worth.getText().toString();
+                _date = fromDateEtxt.getText().toString();
+                _details = details.getText().toString();
 
-                if (_subject.equals("") || _title.equals("") || _worth.equals("")) {
+                if (_subject.equals("") || _title.equals("") || _worth.equals("") || _date.equals("") || _details.equals("")) {
                     Toast.makeText(getApplicationContext(), "Please fill all the fields.", Toast.LENGTH_SHORT).show();
                 } else {
 
@@ -104,11 +109,14 @@ public class UniActivities extends AppCompatActivity implements AdapterView.OnIt
                     dataObject.put("type", item);
                     dataObject.put("title", _title);
                     dataObject.put("worth", _worth);
+                    dataObject.put("duedate", _date);
+                    dataObject.put("details", _details);
                     dataObject.saveInBackground();
 
+                    startActivity(new Intent(UniActivities.this, Projects.class));
 
                 }
-                startActivity(new Intent(UniActivities.this, Projects.class));
+
             }
         });
 

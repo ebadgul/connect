@@ -91,7 +91,7 @@ public class Login extends AppCompatActivity {
 
                             Toast.makeText(getApplicationContext(),
                                     "Successfully Logged in",
-                                    Toast.LENGTH_LONG).show();
+                                    Toast.LENGTH_SHORT).show();
                             finish();
                         }
                         else {
@@ -131,7 +131,7 @@ public class Login extends AppCompatActivity {
             return;
         }
 
-    Toast.makeText(getApplicationContext(), "Thank You!", Toast.LENGTH_SHORT).show();
+//    Toast.makeText(getApplicationContext(), "Thank You!", Toast.LENGTH_SHORT).show();
     }
 
     private boolean validateName() {
