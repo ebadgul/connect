@@ -4,7 +4,6 @@
         tools:context="www.wit.ie.connect.college.Timetable">
 
 
-
         <item
             android:id="@+id/action_timetable"
             android:orderInCategory="100"

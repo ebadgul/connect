@@ -88,8 +88,6 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_timetable) {
             startActivity(new Intent(this, Timetable.class));
-        }else if (id == R.id.action_settings){
-            startActivity(new Intent(this, UniActivities.class));
         }else if (id ==  R.id.user_profile){
             startActivity(new Intent(this, UserProfile.class));
         }/*else if (id == R.id.action_logout){
@@ -99,6 +97,9 @@ public class MainActivity extends AppCompatActivity {
 //            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 //            startActivity(intent);
             finish();
+            else if (id == R.id.action_settings){
+            startActivity(new Intent(this, UniActivities.class));
+        }
         }*/
 
 

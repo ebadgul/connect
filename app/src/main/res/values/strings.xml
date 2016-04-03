@@ -65,10 +65,11 @@
     <string name="google_api_key">AIzaSyB3h5y3WhDfL9mGnb6O1DAJJoMvjMjReLE</string>
     <string name="title_activity_projects">Projects</string>
     <string name="title_activity_project">Project</string>
-    <string name="title_activity_single_item_view">SingleItemView</string>
+    <string name="title_activity_single_item_view">All Details</string>
     <string name="title_activity_user_profile">Your Profile</string>
     <string name="deletePBtn">delete Profile</string>
     <string name="due">Due:</string>
     <string name="details" />
     <string name="mdetails">More details about the upcoming event here.</string>
+    <string name="saveChanges">Save Changes</string>
 </resources>

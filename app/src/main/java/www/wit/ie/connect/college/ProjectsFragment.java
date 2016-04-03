@@ -136,7 +136,11 @@ public class ProjectsFragment extends Fragment {
                     Intent i = new Intent(getActivity(), SingleItemView.class);
                     // Pass data "name" followed by the position
                     i.putExtra("subject", ob.get(position).getString("subject").toString());
-                    i.putExtra("type", ob.get(position).getString("type".toString()));
+                    i.putExtra("type", ob.get(position).getString("type").toString());
+                    i.putExtra("title", ob.get(position).getString("title").toString());
+                    i.putExtra("worth", ob.get(position).getString("worth").toString());
+                    i.putExtra("duedate", ob.get(position).getString("duedate").toString());
+                    i.putExtra("details", ob.get(position).getString("details").toString());
                     // Open SingleItemView.java Activity
                     startActivity(i);
                 }

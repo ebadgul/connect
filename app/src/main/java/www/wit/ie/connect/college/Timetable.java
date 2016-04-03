@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -16,6 +17,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -45,29 +47,43 @@ public class Timetable extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        btnSelect = (Button) findViewById(R.id.btnSelectPhoto);
+       /* btnSelect = (Button) findViewById(R.id.action_timetable);
         btnSelect.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 selectImage();
             }
-        });
+        });*/
         ivImage = (ImageView) findViewById(R.id.ivImage);
 
-        button = (Button) findViewById(R.id.uploadBtn);
 
+//      *********************************************************************
+//      *********************************************************************
+
+        button = (Button) findViewById(R.id.uploadBtn);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Locate the image in res > drawable-hdpi
+//                Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.saveit);
+//                Bitmap shithead = BitmapFactory.;
 
-                Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.saveit);
+//                TextView textView=(TextView)view.findViewById(R.id.textView);
+//                ImageView imageView=(ImageView)view.findViewById(R.id.imageView);
+//                String textViewString=textView.getText().toString();
+
+                Bitmap bitmap = ((BitmapDrawable)ivImage.getDrawable()).getBitmap();
+
+
+                // Convert it to byte
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                // Compress image to lower quality scale 1 - 100
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
                 byte[] image = stream.toByteArray();
 
                 // Create the ParseFile
-                ParseFile file = new ParseFile("androidbegin.png", image);
+                ParseFile file = new ParseFile("Timetable.png", image);
                 // Upload the image into Parse Cloud
                 file.saveInBackground();
 
@@ -75,7 +91,7 @@ public class Timetable extends AppCompatActivity {
                 ParseObject imgupload = new ParseObject("ImageUpload");
 
                 // Create a column named "ImageName" and set the string
-                imgupload.put("ImageName", "AndroidBegin Logo");
+                imgupload.put("ImageName", "timetable");
 
                 // Create a column named "ImageFile" and insert the image
                 imgupload.put("ImageFile", file);
@@ -84,28 +100,15 @@ public class Timetable extends AppCompatActivity {
                 imgupload.saveInBackground();
 
                 // Show a simple toast message
-                Toast.makeText(Timetable.this, "Image Uploaded",
+                Toast.makeText(Timetable.this, "Timetable Uploaded",
                         Toast.LENGTH_SHORT).show();
 
 
             }
         });
-
-
-
-
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                startActivity(new Intent(Timetable.this, Projects.class));
-            }
-        });
     }
-//    nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn
+//      *********************************************************************
+//      *********************************************************************
 
     private void selectImage() {
         final CharSequence[] items = { "Take Photo", "Choose from Library",
@@ -206,6 +209,15 @@ public class Timetable extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+        if (id == R.id.action_timetable){
+            selectImage();
+        }
 
 
+        return super.onOptionsItemSelected(item);
+    }
 }
