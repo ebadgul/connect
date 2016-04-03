@@ -23,8 +23,24 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import android.app.Activity;
+import android.graphics.Matrix;
+import android.graphics.PointF;
+import android.os.Bundle;
+import android.util.FloatMath;
+import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnTouchListener;
+import android.widget.ImageView;
+import android.widget.ZoomControls;
+
+import com.parse.GetCallback;
+import com.parse.GetDataCallback;
+import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -34,11 +50,34 @@ import java.io.IOException;
 
 import www.wit.ie.connect.R;
 
-public class Timetable extends AppCompatActivity {
+public class Timetable extends AppCompatActivity implements OnTouchListener {
     private Button button;
     int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     Button btnSelect;
     ImageView ivImage;
+
+    ZoomControls zoom;
+
+    //    ***************************************
+    private static final String TAG = "Touch";
+    @SuppressWarnings("unused")
+    private static final float MIN_ZOOM = 1f, MAX_ZOOM = 1f;
+
+    // These matrices will be used to scale points of the image
+    Matrix matrix = new Matrix();
+    Matrix savedMatrix = new Matrix();
+
+    // The 3 states (events) which the user is trying to perform
+    static final int NONE = 0;
+    static final int DRAG = 1;
+    static final int ZOOM = 2;
+    int mode = NONE;
+
+    // these PointF objects are used to record the point(s) the user is touching
+    PointF start = new PointF();
+    PointF mid = new PointF();
+    float oldDist = 1f;
+//    *********************************************
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,14 +94,120 @@ public class Timetable extends AppCompatActivity {
                 selectImage();
             }
         });*/
+
+        //******************************************************************************************
+
+
+
+
+/*
+        ParseObject parseObject = new ParseObject("ImageUpload");
+        ParseFile fileObject = (ParseFile) parseObject.get("Timetable");
+        fileObject.getDataInBackground(new GetDataCallback() {
+            @Override
+            public void done(byte[] data, ParseException e) {
+
+                if (e == null) {
+                    Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+//                    ImageView pic;
+
+//                    pic = (ImageView) findViewById(R.id.totemView);
+                    ivImage = (ImageView) findViewById(R.id.ivImage);
+                    ivImage.setImageBitmap(bmp);
+
+                } else {
+                    Toast.makeText(getApplication(), "Sorry something is wrong", Toast.LENGTH_LONG).show();
+
+                }
+
+            }
+        });
+
+        ParseObject parseObject = new ParseObject("connect");
+        ParseFile imageFile = (ParseFile)parseObject.get("ImageFile");
+        imageFile.getDataInBackground(new GetDataCallback() {
+            public void done(byte[] data, ParseException e) {
+                if (e == null) {
+//                    Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+                    ivImage = (ImageView) findViewById(R.id.ivImage);
+//                    ivImage.setImageBitmap(bmp);
+                } else {
+                    // something went wrong
+                    Log.v("soething is rong", "somet");
+                }
+            }
+        });*/
+//--------------------------------------------------------------
+        // Locate the class table named "ImageUpload" in Parse.com
+/*        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("ImageUpload");
+        // Locate the objectId from the class
+        query.getInBackground("svjq1hEE48", new GetCallback<ParseObject>() {
+            public void done(ParseObject object, ParseException e) {
+                ParseFile fileObject = (ParseFile) object.get("Timetable");
+                fileObject.getDataInBackground(new GetDataCallback() {
+
+                    public void done(byte[] data, ParseException e) {
+                        if (e == null) {
+                            Log.d("test", "We've got data in data.");
+                            Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+                            ivImage = (ImageView) findViewById(R.id.ivImage);
+                            ivImage.setImageBitmap(bmp);
+                        } else {
+                            Log.d("test",
+                                    "There was a problem downloading the data.");
+                        }
+                    }
+                });
+            }
+        });*/
+
+
+
+
+
+
+
+
+
+        //******************************************************************************************
         ivImage = (ImageView) findViewById(R.id.ivImage);
 
+        zoom = (ZoomControls) findViewById(R.id.zoomControls);
+        zoom.setOnZoomInClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+
+                float x = ivImage.getScaleX();
+                float y = ivImage.getScaleY();
+
+                ivImage.setScaleX((float) (x+1));
+                ivImage.setScaleY((float) (y+1));
+            }
+        });
+
+        zoom.setOnZoomOutClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+
+
+                float x = ivImage.getScaleX();
+                float y = ivImage.getScaleY();
+
+                ivImage.setScaleX((float) (x-1));
+                ivImage.setScaleY((float) (y-1));
+            }
+        });
 
 //      *********************************************************************
+        ivImage.setOnTouchListener(this);
 //      *********************************************************************
 
-        button = (Button) findViewById(R.id.uploadBtn);
-        button.setOnClickListener(new View.OnClickListener() {
+//        button = (Button) findViewById(R.id.uploadBtn);
+       /* ivImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Locate the image in res > drawable-hdpi
@@ -74,8 +219,6 @@ public class Timetable extends AppCompatActivity {
 //                String textViewString=textView.getText().toString();
 
                 Bitmap bitmap = ((BitmapDrawable)ivImage.getDrawable()).getBitmap();
-
-
                 // Convert it to byte
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 // Compress image to lower quality scale 1 - 100
@@ -105,7 +248,7 @@ public class Timetable extends AppCompatActivity {
 
 
             }
-        });
+        });*/
     }
 //      *********************************************************************
 //      *********************************************************************
@@ -213,11 +356,173 @@ public class Timetable extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
-        if (id == R.id.action_timetable){
+        if (id == R.id.action_upload_timetable) {
             selectImage();
+        }else if (id == R.id.action_save_timetable) {
+
+            Bitmap bitmap = ((BitmapDrawable) ivImage.getDrawable()).getBitmap();
+            // Convert it to byte
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            // Compress image to lower quality scale 1 - 100
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byte[] image = stream.toByteArray();
+
+            // Create the ParseFile
+            ParseFile file = new ParseFile("Timetable.png", image);
+            // Upload the image into Parse Cloud
+            file.saveInBackground();
+
+            // Create a New Class called "ImageUpload" in Parse
+            ParseObject imgupload = new ParseObject("ImageUpload");
+
+            // Create a column named "ImageName" and set the string
+            imgupload.put("ImageName", "timetable");
+
+            // Create a column named "ImageFile" and insert the image
+            imgupload.put("ImageFile", file);
+
+            // Create the class and the columns
+            imgupload.saveInBackground();
+
+            // Show a simple toast message
+            Toast.makeText(Timetable.this, "Timetable Saved",
+                    Toast.LENGTH_SHORT).show();
+
         }
 
 
         return super.onOptionsItemSelected(item);
     }
+
+//    ****************************************************************************************
+
+
+    public boolean onTouch(View v, MotionEvent event)
+    {
+        ImageView view = (ImageView) v;
+        view.setScaleType(ImageView.ScaleType.MATRIX);
+        float scale;
+
+        dumpEvent(event);
+        // Handle touch events here...
+
+        switch (event.getAction() & MotionEvent.ACTION_MASK)
+        {
+            case MotionEvent.ACTION_DOWN:   // first finger down only
+                savedMatrix.set(matrix);
+                start.set(event.getX(), event.getY());
+                Log.d(TAG, "mode=DRAG"); // write to LogCat
+                mode = DRAG;
+                break;
+
+            case MotionEvent.ACTION_UP: // first finger lifted
+
+            case MotionEvent.ACTION_POINTER_UP: // second finger lifted
+
+                mode = NONE;
+                Log.d(TAG, "mode=NONE");
+                break;
+
+            case MotionEvent.ACTION_POINTER_DOWN: // first and second finger down
+
+                oldDist = spacing(event);
+                Log.d(TAG, "oldDist=" + oldDist);
+                if (oldDist > 5f) {
+                    savedMatrix.set(matrix);
+                    midPoint(mid, event);
+                    mode = ZOOM;
+                    Log.d(TAG, "mode=ZOOM");
+                }
+                break;
+
+            case MotionEvent.ACTION_MOVE:
+
+                if (mode == DRAG)
+                {
+                    matrix.set(savedMatrix);
+                    matrix.postTranslate(event.getX() - start.x, event.getY() - start.y); // create the transformation in the matrix  of points
+                }
+                else if (mode == ZOOM)
+                {
+                    // pinch zooming
+                    float newDist = spacing(event);
+                    Log.d(TAG, "newDist=" + newDist);
+                    if (newDist > 5f)
+                    {
+                        matrix.set(savedMatrix);
+                        scale = newDist / oldDist; // setting the scaling of the
+                        // matrix...if scale > 1 means
+                        // zoom in...if scale < 1 means
+                        // zoom out
+                        matrix.postScale(scale, scale, mid.x, mid.y);
+                    }
+                }
+                break;
+        }
+
+        view.setImageMatrix(matrix); // display the transformation on screen
+
+        return true; // indicate event was handled
+    }
+
+    /*
+     * --------------------------------------------------------------------------
+     * Method: spacing Parameters: MotionEvent Returns: float Description:
+     * checks the spacing between the two fingers on touch
+     * ----------------------------------------------------
+     */
+
+    private float spacing(MotionEvent event)
+    {
+        float x = event.getX(0) - event.getX(1);
+        float y = event.getY(0) - event.getY(1);
+        return (float)Math.sqrt(x * x + y * y);
+    }
+
+    /*
+     * --------------------------------------------------------------------------
+     * Method: midPoint Parameters: PointF object, MotionEvent Returns: void
+     * Description: calculates the midpoint between the two fingers
+     * ------------------------------------------------------------
+     */
+
+    private void midPoint(PointF point, MotionEvent event)
+    {
+        float x = event.getX(0) + event.getX(1);
+        float y = event.getY(0) + event.getY(1);
+        point.set(x / 2, y / 2);
+    }
+
+    /** Show an event in the LogCat view, for debugging */
+    private void dumpEvent(MotionEvent event)
+    {
+        String names[] = { "DOWN", "UP", "MOVE", "CANCEL", "OUTSIDE","POINTER_DOWN", "POINTER_UP", "7?", "8?", "9?" };
+        StringBuilder sb = new StringBuilder();
+        int action = event.getAction();
+        int actionCode = action & MotionEvent.ACTION_MASK;
+        sb.append("event ACTION_").append(names[actionCode]);
+
+        if (actionCode == MotionEvent.ACTION_POINTER_DOWN || actionCode == MotionEvent.ACTION_POINTER_UP)
+        {
+            sb.append("(pid ").append(action >> MotionEvent.ACTION_POINTER_ID_SHIFT);
+            sb.append(")");
+        }
+
+        sb.append("[");
+        for (int i = 0; i < event.getPointerCount(); i++)
+        {
+            sb.append("#").append(i);
+            sb.append("(pid ").append(event.getPointerId(i));
+            sb.append(")=").append((int) event.getX(i));
+            sb.append(",").append((int) event.getY(i));
+            if (i + 1 < event.getPointerCount())
+                sb.append(";");
+        }
+
+        sb.append("]");
+        Log.d("Touch Events ---------", sb.toString());
+    }
+
+
+//    ****************************************************************************************
 }

@@ -114,6 +114,7 @@ public class UniActivities extends AppCompatActivity implements AdapterView.OnIt
                     dataObject.saveInBackground();
 
                     startActivity(new Intent(UniActivities.this, Projects.class));
+                    finish();
 
                 }
 
