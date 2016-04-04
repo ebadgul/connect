@@ -166,9 +166,6 @@ public class MessagingActivity extends AppCompatActivity {
 
         @Override
         public void onMessageSent(MessageClient client, Message message, String recipientId) {
-
-
-
             final WritableMessage writableMessage = new WritableMessage(message.getRecipientIds().get(0), message.getTextBody());
             messageAdapter.addMessage(writableMessage, MessageAdapter.DIRECTION_OUTGOING);
         }

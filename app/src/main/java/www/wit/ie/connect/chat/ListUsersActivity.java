@@ -49,30 +49,10 @@ public class ListUsersActivity extends Fragment {
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 
         showSpinner();
-
-
-//********************************************************************************
-     /*   FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
-//*******************************************************************************
-
-
-
-
         return v;
     }
 
-   /* public void onViewCreated(){
-        showSpinner();
-    }*/
-
-    private void setConversationsList(){
+    private void setConversationsList() {
         currentUserId = ParseUser.getCurrentUser().getObjectId();
         names = new ArrayList<String>();
 
@@ -105,25 +85,25 @@ public class ListUsersActivity extends Fragment {
         });
     }
 
-    public void openConversation(ArrayList<String> names, int pos){
+    public void openConversation(ArrayList<String> names, int pos) {
         ParseQuery<ParseUser> query = ParseUser.getQuery();
         query.whereEqualTo("username", names.get(pos));
         query.findInBackground(new FindCallback<ParseUser>() {
             @Override
             public void done(List<ParseUser> user, ParseException e) {
-                if (e == null){
+                if (e == null) {
                     Intent intent = new Intent(getActivity().getApplicationContext(), MessagingActivity.class);
                     intent.putExtra("RECIPIENT_ID", user.get(0).getObjectId());
                     startActivity(intent);
-                }else {
+                } else {
 
-                    Toast.makeText(getActivity().getApplicationContext(),"Error finding that user", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity().getApplicationContext(), "Error finding that user", Toast.LENGTH_LONG).show();
                 }
             }
         });
     }
 
-    private void showSpinner(){
+    private void showSpinner() {
         progressDialog = new ProgressDialog(this.getActivity());
         progressDialog.setTitle("Loading");
         progressDialog.setMessage("Please wait...");
@@ -134,15 +114,15 @@ public class ListUsersActivity extends Fragment {
             public void onReceive(Context context, Intent intent) {
                 Boolean success = intent.getBooleanExtra("success", false);
                 progressDialog.dismiss();
-                if (!success){
-                    Toast.makeText(getActivity().getApplicationContext(),"Messaging service failed start", Toast.LENGTH_LONG).show();
+                if (!success) {
+                    Toast.makeText(getActivity().getApplicationContext(), "Messaging service failed start", Toast.LENGTH_LONG).show();
                 }
             }
         };
         LocalBroadcastManager.getInstance(this.getActivity()).registerReceiver(receiver, new IntentFilter("www.wit.ie.connect.chat.ListUsersActivity"));
     }
 
-    public void onResume(){
+    public void onResume() {
         setConversationsList();
         super.onResume();
     }

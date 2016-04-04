@@ -37,8 +37,6 @@ public class MessageAdapter extends BaseAdapter {
         messages.add(new Pair(message, direction));
         notifyDataSetChanged();
     }
-
-
     @Override
     public int getCount() {
         return messages.size();
@@ -60,8 +58,6 @@ public class MessageAdapter extends BaseAdapter {
     public int getItemViewType(int i){
         return messages.get(i).second;
     }
-
-
     @Override
     public View getView(int i, View convertView, ViewGroup viewGroup) {
         int direction = getItemViewType(i);
@@ -82,13 +78,3 @@ public class MessageAdapter extends BaseAdapter {
         return convertView;
     }
 }
-
-/*  @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.message_left);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-
-    }*/

@@ -73,7 +73,7 @@ public class AutoCompleteAdapter extends ArrayAdapter<AutoCompletePlace> {
 
                 clear();
 
-                displayPredictiveResults( constraint.toString() );
+                displayPredictiveResults(constraint.toString() );
 
                 return null;
             }

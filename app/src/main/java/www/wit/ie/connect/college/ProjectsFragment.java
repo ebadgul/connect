@@ -81,7 +81,7 @@ public class ProjectsFragment extends Fragment {
             // Set progressdialog title
             mProgressDialog.setTitle("Loading...");
             // Set progressdialog message
-            mProgressDialog.setMessage("Loading...");
+            mProgressDialog.setMessage("Retrieving data");
             mProgressDialog.setIndeterminate(false);
             // Show progressdialog
             mProgressDialog.show();
