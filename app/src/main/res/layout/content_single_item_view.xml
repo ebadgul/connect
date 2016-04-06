@@ -133,13 +133,6 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true" />
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="delete"
-                android:id="@+id/deleteBtnS"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentStart="true" />
         </RelativeLayout>
 
     </GridLayout>
