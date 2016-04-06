@@ -1,5 +1,7 @@
 package www.wit.ie.connect.college;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -166,64 +168,54 @@ public class SingleItemView extends AppCompatActivity {
 //            final String objectId = object.getObjectId();
 
 
-            final String shipp;
-            Intent intent = getIntent();
-            shipp = intent.getStringExtra("subject");
+            final String dSubject;
+            Intent intentt = getIntent();
+            dSubject = intentt.getStringExtra("subject");
 
+//            String n = ParseUser.getCurrentUser().getObjectId("connect");
 
             ParseQuery<ParseObject> query = ParseQuery.getQuery("connect");
-            query.whereEqualTo("subject", shipp);
+            query.whereEqualTo("subject", dSubject);
             query.getFirstInBackground(new GetCallback<ParseObject>() {
                 @Override
-                public void done(ParseObject object, ParseException e) {
+                public void done(final ParseObject object, ParseException e) {
                     if (object == null) {
                         Log.v("delete problem", "sdd" + e);
-                        Log.v("object id", "sdd" +shipp);
+                        Toast.makeText(getApplicationContext(),"Something went wrong", Toast.LENGTH_SHORT).show();
+//                        Log.v("object id", "sdd" +n);
 //                        object.deleteInBackground();
 //                        Log.v("detle obj", ""+object.getObjectId());
 //                        object.deleteInBackground();
                     } else {
-                        object.deleteInBackground();
+
+
+                        new AlertDialog.Builder(SingleItemView.this)
+                                .setMessage("Are you sure?")
+                                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // continue with delete
+                                        object.deleteInBackground();
+//                                        object.saveInBackground();
+//                                        startActivity(new Intent(getBaseContext(), ProjectsFragment.class));
+//                                        finish();
+                                    }
+                                })
+                                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // do nothing
+                                    }
+                                })
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .show();
+
+
+
+//                        object.deleteInBackground();
+//                        startActivity(new Intent(SingleItemView.this, ProjectsFragment.class));
+//                        finish();
                     }
                 }
             });
-
-
-
-/*            ParseQuery<ParseObject> query = ParseQuery.getQuery("connect");
-            query.getInBackground("objectId", new GetCallback<ParseObject>() {
-                public void done(ParseObject object, ParseException e) {
-                    if (e == null) {
-                        // you can use your returned object here
-                        object.deleteInBackground();
-                    } else {
-                        Log.v("shit happened", ""+e);
-                        // something went wrong
-                    }
-                }
-            });*/
-
-
-
-         /*   query.whereEqualTo("User", ParseUser.getCurrentUser());
-            query.getFirstInBackground(new FindCallBack() {
-
-                @Override
-                public void done(ParseObject object, com.parse.ParseException arg0) {
-                    // TODO Auto-generated method stub
-                    object.delete();
-                    object.saveInBackground();
-                }
-            }););*/
-
-
-
-
-
-
-
-
-
 
 
         }
