@@ -1,3 +1,4 @@
+/*
 package www.wit.ie.connect.data;
 
 import android.app.Activity;
@@ -11,9 +12,11 @@ import com.parse.ParseUser;
 
 import www.wit.ie.connect.MainActivity;
 
+*/
 /**
  * Created by ebad on 27/01/16.
- */
+ *//*
+
 public class ParseMainActivity extends Activity{
 
     public void onCreate(Bundle savedInstanceState){
@@ -43,3 +46,4 @@ public class ParseMainActivity extends Activity{
 
     }
 }
+*/
