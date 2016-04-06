@@ -95,12 +95,12 @@ public class SingleItemView extends AppCompatActivity {
         });
 
 
-        Button _delete = (Button) findViewById(R.id.deleteBtnS);
+        /*Button _delete = (Button) findViewById(R.id.deleteBtnS);
         Log.v("delete1", ""+_delete);
         _delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-          /*      Log.v("delete2", "delete2");
+          *//*      Log.v("delete2", "delete2");
                 ParseQuery<ParseObject> query = ParseQuery.getQuery("connect");
                 query.whereEqualTo("subject","");
                 query.findInBackground(new FindCallback<ParseObject>() {
@@ -113,12 +113,12 @@ public class SingleItemView extends AppCompatActivity {
                         }
 
                     }
-                });*/
+                });*//*
 
 
             }
         });
-
+*/
 
 
       /*  ParseQuery<ParseObject> query = ParseQuery.getQuery("your table name");
