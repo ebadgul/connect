@@ -19,6 +19,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -76,7 +77,7 @@ public class UniActivities extends AppCompatActivity implements AdapterView.OnIt
         categories.add("Other");
 
         // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
+        final ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
 
         // Drop down layout style - list view with radio button
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -111,7 +112,13 @@ public class UniActivities extends AppCompatActivity implements AdapterView.OnIt
                     dataObject.put("worth", _worth);
                     dataObject.put("duedate", _date);
                     dataObject.put("details", _details);
+                    dataObject.put("createdBy", ParseUser.getCurrentUser());
                     dataObject.saveInBackground();
+
+//                    ParseObject game = new ParseObject("Game");
+//                    game.put("createdBy", ParseUser.getCurrentUser());
+
+//                    ParseObject game = new ParseObject("Game");
 
                     startActivity(new Intent(UniActivities.this, Projects.class));
                     finish();

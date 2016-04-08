@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -84,7 +85,7 @@ public class ProjectsFragment extends Fragment {
             mProgressDialog.setMessage("Retrieving data");
             mProgressDialog.setIndeterminate(false);
             // Show progressdialog
-            mProgressDialog.show();
+            mProgressDialog.hide();
         }
 
         @Override
@@ -92,6 +93,10 @@ public class ProjectsFragment extends Fragment {
             // Locate the class table named "Country" in Parse.com
             ParseQuery<ParseObject> query = new ParseQuery<ParseObject>(
                     "connect");
+
+//            ParseQuery<ParseObject> gameQuery = ParseQuery.getQuery("Game");
+            query.whereEqualTo("createdBy", ParseUser.getCurrentUser());
+
             query.orderByDescending("_created_at");
             try {
                 ob = query.find();
