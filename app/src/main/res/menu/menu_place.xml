@@ -13,14 +13,12 @@
         android:icon="@android:drawable/ic_menu_myplaces"
         app:showAsAction="always" />
 
+<!--
     <item android:id="@+id/action_guess_current_place"
         android:title="Guess Current Place"
         android:orderInCategory="200"
         android:icon="@android:drawable/ic_menu_mylocation"
         app:showAsAction="always" />
-
-
-
-
+-->
 
     </menu>

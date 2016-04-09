@@ -55,6 +55,7 @@ public class GooglePlaces extends Fragment implements GoogleApiClient.OnConnecti
     private TextView mTextView;
     private AutoCompleteTextView mPredictTextView;
     public String phone;
+    private TextView textView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -132,7 +133,7 @@ public class GooglePlaces extends Fragment implements GoogleApiClient.OnConnecti
         });
     }
 
-    private void guessCurrentPlace() {
+   /* private void guessCurrentPlace() {
         PendingResult<PlaceLikelihoodBuffer> result = Places.PlaceDetectionApi.getCurrentPlace(mGoogleApiClient, null);
         result.setResultCallback(new ResultCallback<PlaceLikelihoodBuffer>() {
             @Override
@@ -149,7 +150,7 @@ public class GooglePlaces extends Fragment implements GoogleApiClient.OnConnecti
                 likelyPlaces.release();
             }
         });
-    }
+    }*/
 
     private void displayPlacePicker() {
         if (mGoogleApiClient == null || !mGoogleApiClient.isConnected())
@@ -165,21 +166,6 @@ public class GooglePlaces extends Fragment implements GoogleApiClient.OnConnecti
             Log.d("PlacesAPI Demo", "GooglePlayServicesNotAvailableException thrown");
         }
     }
-    /*
-    private void displayPlacePicker() {
-        if( mGoogleApiClient == null || !mGoogleApiClient.isConnected() )
-            return;
-
-        PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
-
-        try {
-            startActivityForResult( builder.build((Activity) getActivity().getApplicationContext() ), PLACE_PICKER_REQUEST );
-        } catch ( GooglePlayServicesRepairableException e ) {
-            Log.d( "PlacesAPI Demo", "GooglePlayServicesRepairableException thrown" );
-        } catch ( GooglePlayServicesNotAvailableException e ) {
-            Log.d( "PlacesAPI Demo", "GooglePlayServicesNotAvailableException thrown" );
-        }
-    }*/
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PLACE_PICKER_REQUEST && resultCode == Activity.RESULT_OK) {
@@ -200,9 +186,9 @@ public class GooglePlaces extends Fragment implements GoogleApiClient.OnConnecti
         }
         if (!TextUtils.isEmpty(place.getPhoneNumber())) {
             content += "Phone: " + place.getPhoneNumber();
-            Log.v("phonnnee", "" + place.getPhoneNumber());
+//            Log.v("phonnnee", "" + place.getPhoneNumber());
 
-            phone = (String) place.getPhoneNumber();
+//            phone = (String) place.getPhoneNumber();
 //            phone.setOnClickListener()
 
 //            String uri = "tel:" + phone.trim() ;
@@ -210,6 +196,8 @@ public class GooglePlaces extends Fragment implements GoogleApiClient.OnConnecti
 //            intent.setData(Uri.parse(uri));
 //            startActivity(intent);
         }
+//        phone = place.getPhoneNumber().toString();
+//        textView.setText( content );
 
         mTextView.setText(content);
     }
@@ -230,10 +218,10 @@ public class GooglePlaces extends Fragment implements GoogleApiClient.OnConnecti
             displayPlacePicker();
             Log.v("action places", "" + id);
             return true;
-        } else if (id == R.id.action_guess_current_place) {
+        }/* else if (id == R.id.action_guess_current_place) {
             guessCurrentPlace();
             return true;
-        }
+        }*/
 
         return super.onOptionsItemSelected(item);
     }
@@ -253,6 +241,14 @@ public class GooglePlaces extends Fragment implements GoogleApiClient.OnConnecti
     public void onConnectionFailed(ConnectionResult connectionResult) {
 
     }
+
+/*    public void launchPhone(View v) {
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse("tel:"+phone));
+        startActivity(intent);
+
+    }*/
+
 
   /*  private View.OnClickListener next = new View.OnClickListener() {
 
@@ -296,7 +292,7 @@ public class GooglePlaces extends Fragment implements GoogleApiClient.OnConnecti
 
 
 //    phone.setOnClickListener(new View.OnClickListener() {
-//
+
 //    }
 
 //    @Override

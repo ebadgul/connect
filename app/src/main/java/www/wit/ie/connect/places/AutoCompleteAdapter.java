@@ -30,24 +30,24 @@ public class AutoCompleteAdapter extends ArrayAdapter<AutoCompletePlace> {
 
     private GoogleApiClient mGoogleApiClient;
 
-    public AutoCompleteAdapter( Context context ) {
+    public AutoCompleteAdapter(Context context) {
         super(context, 0);
     }
 
     @Override
-    public View getView( int position, View convertView, ViewGroup parent ) {
+    public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
 
-        if( convertView == null ) {
+        if (convertView == null) {
             holder = new ViewHolder();
-            convertView = LayoutInflater.from( getContext() ).inflate( android.R.layout.simple_list_item_1, parent, false  );
-            holder.text = (TextView) convertView.findViewById( android.R.id.text1 );
-            convertView.setTag( holder );
+            convertView = LayoutInflater.from(getContext()).inflate(android.R.layout.simple_list_item_1, parent, false);
+            holder.text = (TextView) convertView.findViewById(android.R.id.text1);
+            convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.text.setText( getItem( position ).getDescription() );
+        holder.text.setText(getItem(position).getDescription());
 
         return convertView;
     }
@@ -66,14 +66,14 @@ public class AutoCompleteAdapter extends ArrayAdapter<AutoCompletePlace> {
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
 
-                if( mGoogleApiClient == null || !mGoogleApiClient.isConnected() ) {
-                    Toast.makeText( getContext(), "Not connected", Toast.LENGTH_SHORT ).show();
+                if (mGoogleApiClient == null || !mGoogleApiClient.isConnected()) {
+                    Toast.makeText(getContext(), "Not connected", Toast.LENGTH_SHORT).show();
                     return null;
                 }
 
                 clear();
 
-                displayPredictiveResults(constraint.toString() );
+                displayPredictiveResults(constraint.toString());
 
                 return null;
             }
@@ -85,16 +85,15 @@ public class AutoCompleteAdapter extends ArrayAdapter<AutoCompletePlace> {
         };
     }
 
-    private void displayPredictiveResults( String query )
-    {
+    private void displayPredictiveResults(String query) {
         //Southwest corner to Northeast corner.
-        LatLngBounds bounds = new LatLngBounds( new LatLng( 39.906374, -105.122337 ), new LatLng( 39.949552, -105.068779 ) );
+        LatLngBounds bounds = new LatLngBounds(new LatLng(39.906374, -105.122337), new LatLng(39.949552, -105.068779));
 
         //Filter: https://developers.google.com/places/supported_types#table3
         List<Integer> filterTypes = new ArrayList<Integer>();
-        filterTypes.add( Place.TYPE_ESTABLISHMENT );
+        filterTypes.add(Place.TYPE_ESTABLISHMENT);
 
-        Places.GeoDataApi.getAutocompletePredictions( mGoogleApiClient, query, bounds, AutocompleteFilter.create( filterTypes ) )
+        Places.GeoDataApi.getAutocompletePredictions(mGoogleApiClient, query, bounds, AutocompleteFilter.create(filterTypes))
                 .setResultCallback(
                         new ResultCallback<AutocompletePredictionBuffer>() {
                             @Override

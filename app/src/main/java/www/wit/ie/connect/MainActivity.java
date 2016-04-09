@@ -20,6 +20,7 @@ import com.parse.ParseUser;
 
 import www.wit.ie.connect.chat.ListUsersActivity;
 import www.wit.ie.connect.college.ProjectsFragment;
+import www.wit.ie.connect.college.Testing;
 import www.wit.ie.connect.data.Login;
 import www.wit.ie.connect.places.GooglePlaces;
 import www.wit.ie.connect.college.Timetable;
@@ -90,7 +91,12 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(this, Timetable.class));
         }else if (id ==  R.id.user_profile){
             startActivity(new Intent(this, UserProfile.class));
-        }/*else if (id == R.id.action_logout){
+        }else if (id == R.id.user_download){
+            startActivity(new Intent(this, Testing.class));
+        }
+
+
+        /*else if (id == R.id.action_logout){
             ParseUser.logOut();
             startActivity(new Intent(this, Login.class));
 //            Intent intent = new Intent(this, Login.class);

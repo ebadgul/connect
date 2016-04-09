@@ -41,6 +41,7 @@ import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -98,60 +99,76 @@ public class Timetable extends AppCompatActivity implements OnTouchListener {
         //******************************************************************************************
 
 
+        ParseUser cu = ParseUser.getCurrentUser();
+        ParseObject po = new ParseObject("ImageUpload");
+        String obj = cu.getObjectId();
+        Log.v("obj1", ""+po.getObjectId());
+        Log.v("obj2", ""+obj);
+        Log.v("obj3", ""+cu.getObjectId());
+        Log.v("obj4", ""+cu.getParseObject("ImageUpload"));
+        ParseObject gameScore = new ParseObject("ImageUpload");
+        String objectId = gameScore.getObjectId();
+        Log.v("obj5", ""+objectId);
 
 
-/*
-        ParseObject parseObject = new ParseObject("ImageUpload");
-        ParseFile fileObject = (ParseFile) parseObject.get("Timetable");
-        fileObject.getDataInBackground(new GetDataCallback() {
-            @Override
-            public void done(byte[] data, ParseException e) {
-
-                if (e == null) {
-                    Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
-//                    ImageView pic;
-
-//                    pic = (ImageView) findViewById(R.id.totemView);
-                    ivImage = (ImageView) findViewById(R.id.ivImage);
-                    ivImage.setImageBitmap(bmp);
-
-                } else {
-                    Toast.makeText(getApplication(), "Sorry something is wrong", Toast.LENGTH_LONG).show();
-
-                }
-
-            }
-        });
-
-        ParseObject parseObject = new ParseObject("connect");
-        ParseFile imageFile = (ParseFile)parseObject.get("ImageFile");
-        imageFile.getDataInBackground(new GetDataCallback() {
-            public void done(byte[] data, ParseException e) {
-                if (e == null) {
-//                    Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
-                    ivImage = (ImageView) findViewById(R.id.ivImage);
-//                    ivImage.setImageBitmap(bmp);
-                } else {
-                    // something went wrong
-                    Log.v("soething is rong", "somet");
-                }
-            }
-        });*/
-//--------------------------------------------------------------
         // Locate the class table named "ImageUpload" in Parse.com
-/*        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("ImageUpload");
-        // Locate the objectId from the class
-        query.getInBackground("svjq1hEE48", new GetCallback<ParseObject>() {
+        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("ImageUpload");
+        query.whereEqualTo("belongsTo", ParseUser.getCurrentUser());
+        query.orderByDescending("updatedAt");
+        query.getFirstInBackground(new GetCallback<ParseObject>() {
+            @Override
             public void done(ParseObject object, ParseException e) {
-                ParseFile fileObject = (ParseFile) object.get("Timetable");
+                                           ParseFile fileObject = (ParseFile) object.get("ImageFile");
+                                           fileObject.getDataInBackground(new GetDataCallback() {
+
+                                               public void done(byte[] data, ParseException e) {
+                                                   if (e == null) {
+                                                       Log.d("test", "We've got data in data.");
+                                                       // Decode the Byte[] into
+                                                       // Bitmap
+                                                       Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+
+                                                       // Get the ImageView from
+                                                       // main.xml
+                                                       ImageView image = (ImageView) findViewById(R.id.ivImage);
+
+                                                       // Set the Bitmap into the
+                                                       // ImageView
+                                                       image.setImageBitmap(bmp);
+
+
+                                                   } else {
+                                                       Log.d("test",
+                                                               "There was a problem downloading the data.");
+                                                   }
+                                               }
+                                           });
+
+                                       }
+                                   });
+      /*  query.getInBackground(objectId, new GetCallback<ParseObject>() {
+            public void done(ParseObject object, ParseException e) {
+                // Locate the column named "ImageName" and set
+                // the string
+                ParseFile fileObject = (ParseFile) object.get("ImageFile");
                 fileObject.getDataInBackground(new GetDataCallback() {
 
                     public void done(byte[] data, ParseException e) {
                         if (e == null) {
                             Log.d("test", "We've got data in data.");
+                            // Decode the Byte[] into
+                            // Bitmap
                             Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
-                            ivImage = (ImageView) findViewById(R.id.ivImage);
-                            ivImage.setImageBitmap(bmp);
+
+                            // Get the ImageView from
+                            // main.xml
+                            ImageView image = (ImageView) findViewById(R.id.ivImage);
+
+                            // Set the Bitmap into the
+                            // ImageView
+                            image.setImageBitmap(bmp);
+
+
                         } else {
                             Log.d("test",
                                     "There was a problem downloading the data.");
@@ -160,8 +177,6 @@ public class Timetable extends AppCompatActivity implements OnTouchListener {
                 });
             }
         });*/
-
-
 
 
 
@@ -377,6 +392,7 @@ public class Timetable extends AppCompatActivity implements OnTouchListener {
 
             // Create a column named "ImageName" and set the string
             imgupload.put("ImageName", "timetable");
+            imgupload.put("belongsTo", ParseUser.getCurrentUser());
 
             // Create a column named "ImageFile" and insert the image
             imgupload.put("ImageFile", file);

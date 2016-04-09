@@ -107,7 +107,7 @@ public class ListUsersActivity extends Fragment {
         progressDialog = new ProgressDialog(this.getActivity());
         progressDialog.setTitle("Loading");
         progressDialog.setMessage("Please wait...");
-        progressDialog.show();
+        progressDialog.hide();
 
         receiver = new BroadcastReceiver() {
             @Override

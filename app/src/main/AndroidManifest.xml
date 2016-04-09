@@ -96,10 +96,12 @@
             android:name=".chat.ListUsersActivity"
             android:label="@string/title_activity_list_users"
             android:theme="@style/AppTheme.NoActionBar" />
-        <service android:name=".chat.MessageService"></service>
-        <activity android:name="chat.MessagingActivity"
-            android:screenOrientation="portrait">
-        </activity>
+
+        <service android:name=".chat.MessageService" />
+
+        <activity
+            android:name="chat.MessagingActivity"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".chat.MessageAdapter"
             android:label="@string/title_activity_message_adapter"
@@ -131,10 +133,11 @@
         <activity
             android:name=".users.UserProfile"
             android:label="@string/title_activity_user_profile"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".college.Testing"
+            android:label="@string/title_activity_testing"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-
-
-
     </application>
 
 </manifest>

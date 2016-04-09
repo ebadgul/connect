@@ -1,12 +1,12 @@
 package www.wit.ie.connect.data;
 
 import android.app.Application;
+import android.support.multidex.MultiDexApplication;
 
 import com.parse.Parse;
-import com.parse.ParseInstallation;
 
 
-public class ParseApplication extends Application {
+public class ParseApplication extends MultiDexApplication {
 
     public void onCreate() {
         super.onCreate();

@@ -3,19 +3,19 @@ package www.wit.ie.connect.college;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.GridView;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.parse.ParseException;
@@ -23,13 +23,9 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import www.wit.ie.connect.R;
-
-import static www.wit.ie.connect.college.Projects.*;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -64,7 +60,15 @@ public class ProjectsFragment extends Fragment {
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-                startActivity(new Intent(getContext(), UniActivities.class));
+                startActivity(new Intent(getActivity(), UniActivities.class));
+
+
+//                FragmentManager fm = getFragmentManager();
+//                FragmentTransaction ft = fm.beginTransaction();
+//                UniActivities llf = new UniActivities();
+//                ft.add(R.id.replace, llf);
+//                ft.commit();
+
             }
         });
 
