@@ -102,13 +102,13 @@ public class Timetable extends AppCompatActivity implements OnTouchListener {
         ParseUser cu = ParseUser.getCurrentUser();
         ParseObject po = new ParseObject("ImageUpload");
         String obj = cu.getObjectId();
-        Log.v("obj1", ""+po.getObjectId());
-        Log.v("obj2", ""+obj);
-        Log.v("obj3", ""+cu.getObjectId());
-        Log.v("obj4", ""+cu.getParseObject("ImageUpload"));
+        Log.v("obj1", "" + po.getObjectId());
+        Log.v("obj2", "" + obj);
+        Log.v("obj3", "" + cu.getObjectId());
+        Log.v("obj4", "" + cu.getParseObject("ImageUpload"));
         ParseObject gameScore = new ParseObject("ImageUpload");
         String objectId = gameScore.getObjectId();
-        Log.v("obj5", ""+objectId);
+        Log.v("obj5", "" + objectId);
 
 
         // Locate the class table named "ImageUpload" in Parse.com
@@ -118,34 +118,40 @@ public class Timetable extends AppCompatActivity implements OnTouchListener {
         query.getFirstInBackground(new GetCallback<ParseObject>() {
             @Override
             public void done(ParseObject object, ParseException e) {
-                                           ParseFile fileObject = (ParseFile) object.get("ImageFile");
-                                           fileObject.getDataInBackground(new GetDataCallback() {
 
-                                               public void done(byte[] data, ParseException e) {
-                                                   if (e == null) {
-                                                       Log.d("test", "We've got data in data.");
-                                                       // Decode the Byte[] into
-                                                       // Bitmap
-                                                       Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+                if (object ==  null){
+                    Toast.makeText(getApplicationContext(), "Please upload your own timetable", Toast.LENGTH_LONG).show();
+                }else {
 
-                                                       // Get the ImageView from
-                                                       // main.xml
-                                                       ImageView image = (ImageView) findViewById(R.id.ivImage);
+                    ParseFile fileObject = (ParseFile) object.get("ImageFile");
 
-                                                       // Set the Bitmap into the
-                                                       // ImageView
-                                                       image.setImageBitmap(bmp);
+                    fileObject.getDataInBackground(new GetDataCallback() {
+                        public void done(byte[] data, ParseException e) {
+                            if (e == null) {
+                                Log.d("test", "We've got data in data.");
+                                // Decode the Byte[] into
+                                // Bitmap
+                                Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+
+                                // Get the ImageView from
+                                // main.xml
+                                ImageView image = (ImageView) findViewById(R.id.ivImage);
+
+                                // Set the Bitmap into the
+                                // ImageView
+                                image.setImageBitmap(bmp);
 
 
-                                                   } else {
-                                                       Log.d("test",
-                                                               "There was a problem downloading the data.");
-                                                   }
-                                               }
-                                           });
+                            } else {
+                                Log.d("test",
+                                        "There was a problem downloading the data.");
+                            }
+                        }
+                    });
 
-                                       }
-                                   });
+                }
+            }
+        });
       /*  query.getInBackground(objectId, new GetCallback<ParseObject>() {
             public void done(ParseObject object, ParseException e) {
                 // Locate the column named "ImageName" and set
@@ -179,11 +185,6 @@ public class Timetable extends AppCompatActivity implements OnTouchListener {
         });*/
 
 
-
-
-
-
-
         //******************************************************************************************
         ivImage = (ImageView) findViewById(R.id.ivImage);
 
@@ -197,8 +198,8 @@ public class Timetable extends AppCompatActivity implements OnTouchListener {
                 float x = ivImage.getScaleX();
                 float y = ivImage.getScaleY();
 
-                ivImage.setScaleX((float) (x+1));
-                ivImage.setScaleY((float) (y+1));
+                ivImage.setScaleX((float) (x + 1));
+                ivImage.setScaleY((float) (y + 1));
             }
         });
 
@@ -212,8 +213,8 @@ public class Timetable extends AppCompatActivity implements OnTouchListener {
                 float x = ivImage.getScaleX();
                 float y = ivImage.getScaleY();
 
-                ivImage.setScaleX((float) (x-1));
-                ivImage.setScaleY((float) (y-1));
+                ivImage.setScaleX((float) (x - 1));
+                ivImage.setScaleY((float) (y - 1));
             }
         });
 
@@ -269,8 +270,8 @@ public class Timetable extends AppCompatActivity implements OnTouchListener {
 //      *********************************************************************
 
     private void selectImage() {
-        final CharSequence[] items = { "Take Photo", "Choose from Library",
-                "Cancel" };
+        final CharSequence[] items = {"Take Photo", "Choose from Library",
+                "Cancel"};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(Timetable.this);
         builder.setTitle("Add Photo!");
@@ -334,7 +335,7 @@ public class Timetable extends AppCompatActivity implements OnTouchListener {
     @SuppressWarnings("deprecation")
     private void onSelectFromGalleryResult(Intent data) {
         Uri selectedImageUri = data.getData();
-        String[] projection = { MediaStore.MediaColumns.DATA };
+        String[] projection = {MediaStore.MediaColumns.DATA};
         Cursor cursor = managedQuery(selectedImageUri, projection, null, null,
                 null);
         int column_index = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
@@ -373,7 +374,7 @@ public class Timetable extends AppCompatActivity implements OnTouchListener {
         int id = item.getItemId();
         if (id == R.id.action_upload_timetable) {
             selectImage();
-        }else if (id == R.id.action_save_timetable) {
+        } else if (id == R.id.action_save_timetable) {
 
             Bitmap bitmap = ((BitmapDrawable) ivImage.getDrawable()).getBitmap();
             // Convert it to byte
@@ -413,8 +414,7 @@ public class Timetable extends AppCompatActivity implements OnTouchListener {
 //    ****************************************************************************************
 
 
-    public boolean onTouch(View v, MotionEvent event)
-    {
+    public boolean onTouch(View v, MotionEvent event) {
         ImageView view = (ImageView) v;
         view.setScaleType(ImageView.ScaleType.MATRIX);
         float scale;
@@ -422,8 +422,7 @@ public class Timetable extends AppCompatActivity implements OnTouchListener {
         dumpEvent(event);
         // Handle touch events here...
 
-        switch (event.getAction() & MotionEvent.ACTION_MASK)
-        {
+        switch (event.getAction() & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_DOWN:   // first finger down only
                 savedMatrix.set(matrix);
                 start.set(event.getX(), event.getY());
@@ -453,18 +452,14 @@ public class Timetable extends AppCompatActivity implements OnTouchListener {
 
             case MotionEvent.ACTION_MOVE:
 
-                if (mode == DRAG)
-                {
+                if (mode == DRAG) {
                     matrix.set(savedMatrix);
                     matrix.postTranslate(event.getX() - start.x, event.getY() - start.y); // create the transformation in the matrix  of points
-                }
-                else if (mode == ZOOM)
-                {
+                } else if (mode == ZOOM) {
                     // pinch zooming
                     float newDist = spacing(event);
                     Log.d(TAG, "newDist=" + newDist);
-                    if (newDist > 5f)
-                    {
+                    if (newDist > 5f) {
                         matrix.set(savedMatrix);
                         scale = newDist / oldDist; // setting the scaling of the
                         // matrix...if scale > 1 means
@@ -488,11 +483,10 @@ public class Timetable extends AppCompatActivity implements OnTouchListener {
      * ----------------------------------------------------
      */
 
-    private float spacing(MotionEvent event)
-    {
+    private float spacing(MotionEvent event) {
         float x = event.getX(0) - event.getX(1);
         float y = event.getY(0) - event.getY(1);
-        return (float)Math.sqrt(x * x + y * y);
+        return (float) Math.sqrt(x * x + y * y);
     }
 
     /*
@@ -502,31 +496,29 @@ public class Timetable extends AppCompatActivity implements OnTouchListener {
      * ------------------------------------------------------------
      */
 
-    private void midPoint(PointF point, MotionEvent event)
-    {
+    private void midPoint(PointF point, MotionEvent event) {
         float x = event.getX(0) + event.getX(1);
         float y = event.getY(0) + event.getY(1);
         point.set(x / 2, y / 2);
     }
 
-    /** Show an event in the LogCat view, for debugging */
-    private void dumpEvent(MotionEvent event)
-    {
-        String names[] = { "DOWN", "UP", "MOVE", "CANCEL", "OUTSIDE","POINTER_DOWN", "POINTER_UP", "7?", "8?", "9?" };
+    /**
+     * Show an event in the LogCat view, for debugging
+     */
+    private void dumpEvent(MotionEvent event) {
+        String names[] = {"DOWN", "UP", "MOVE", "CANCEL", "OUTSIDE", "POINTER_DOWN", "POINTER_UP", "7?", "8?", "9?"};
         StringBuilder sb = new StringBuilder();
         int action = event.getAction();
         int actionCode = action & MotionEvent.ACTION_MASK;
         sb.append("event ACTION_").append(names[actionCode]);
 
-        if (actionCode == MotionEvent.ACTION_POINTER_DOWN || actionCode == MotionEvent.ACTION_POINTER_UP)
-        {
+        if (actionCode == MotionEvent.ACTION_POINTER_DOWN || actionCode == MotionEvent.ACTION_POINTER_UP) {
             sb.append("(pid ").append(action >> MotionEvent.ACTION_POINTER_ID_SHIFT);
             sb.append(")");
         }
 
         sb.append("[");
-        for (int i = 0; i < event.getPointerCount(); i++)
-        {
+        for (int i = 0; i < event.getPointerCount(); i++) {
             sb.append("#").append(i);
             sb.append("(pid ").append(event.getPointerId(i));
             sb.append(")=").append((int) event.getX(i));
