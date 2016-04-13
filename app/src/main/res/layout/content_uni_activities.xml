@@ -10,6 +10,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="www.wit.ie.connect.college.UniActivities"
+    android:id="@+id/activity_uni_activities"
     tools:showIn="@layout/activity_uni_activities">
 
 <!--    <ScrollView

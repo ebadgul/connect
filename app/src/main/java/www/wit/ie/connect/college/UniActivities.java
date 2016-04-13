@@ -1,6 +1,8 @@
 package www.wit.ie.connect.college;
 
 import android.app.DatePickerDialog;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -120,7 +122,26 @@ public class UniActivities extends AppCompatActivity implements AdapterView.OnIt
 
 //                    ParseObject game = new ParseObject("Game");
 
-                    startActivity(new Intent(UniActivities.this, Projects.class));
+
+                   /* NextFragment nextFrag= new NextFragment();
+                    this.getFragmentManager().beginTransaction()
+                            .replace(R.id.Layout_container, nextFrag,TAG_FRAGMENT)
+                            .addToBackStack(null)
+                            .commit();*/
+
+                    Fragment pf = new Fragment();
+//                    ProjectsFragment pf =  new ProjectsFragment();
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    transaction.replace(R.id.activity_uni_activities, pf);
+                    transaction.addToBackStack(null);
+                    // Commit the transaction
+                    transaction.commit();
+
+//                    this.getFragmentManager().
+
+
+
+//                    startActivity(new Intent(UniActivities.this, Projects.class));
                     finish();
 
                 }

@@ -91,9 +91,9 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(this, Timetable.class));
         }else if (id ==  R.id.user_profile){
             startActivity(new Intent(this, UserProfile.class));
-        }else if (id == R.id.user_download){
+        }/*else if (id == R.id.user_download){
             startActivity(new Intent(this, Testing.class));
-        }
+        }*/
 
 
         /*else if (id == R.id.action_logout){

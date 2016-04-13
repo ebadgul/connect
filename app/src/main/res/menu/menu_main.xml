@@ -21,10 +21,10 @@
         android:title="Profile"
         app:showAsAction="never"/>
 
-    <item
+<!--    <item
         android:id="@+id/user_download"
         android:orderInCategory="100"
         android:title="Profile"
-        app:showAsAction="never"/>
+        app:showAsAction="never"/>-->
 
 </menu>
