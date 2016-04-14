@@ -79,4 +79,5 @@
     <string name="mdetails">More details about the upcoming event here.</string>
     <string name="saveChanges">Save Changes</string>
     <string name="title_activity_testing">Testing</string>
+    <string name="userName">Name</string>
 </resources>

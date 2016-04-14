@@ -101,7 +101,7 @@ public class Timetable extends AppCompatActivity implements OnTouchListener {
 
         ParseUser cu = ParseUser.getCurrentUser();
         ParseObject po = new ParseObject("ImageUpload");
-        String obj = cu.getObjectId();
+        final String obj = cu.getObjectId();
         Log.v("obj1", "" + po.getObjectId());
         Log.v("obj2", "" + obj);
         Log.v("obj3", "" + cu.getObjectId());
@@ -119,9 +119,11 @@ public class Timetable extends AppCompatActivity implements OnTouchListener {
             @Override
             public void done(ParseObject object, ParseException e) {
 
-                if (object ==  null){
+//                if (e == null)
+
+           /*     if (object ==  null){
                     Toast.makeText(getApplicationContext(), "Please upload your own timetable", Toast.LENGTH_LONG).show();
-                }else {
+                }else {*/
 
                     ParseFile fileObject = (ParseFile) object.get("ImageFile");
 
@@ -149,7 +151,7 @@ public class Timetable extends AppCompatActivity implements OnTouchListener {
                         }
                     });
 
-                }
+//                }
             }
         });
       /*  query.getInBackground(objectId, new GetCallback<ParseObject>() {
@@ -398,8 +400,14 @@ public class Timetable extends AppCompatActivity implements OnTouchListener {
             // Create a column named "ImageFile" and insert the image
             imgupload.put("ImageFile", file);
 
-            // Create the class and the columns
-            imgupload.saveInBackground();
+
+            if (imgupload == null){
+                Toast.makeText(getApplicationContext(),"Sorry upload a file first", Toast.LENGTH_SHORT).show();
+            }else {
+                // Create the class and the columns
+                imgupload.saveInBackground();
+
+            }
 
             // Show a simple toast message
             Toast.makeText(Timetable.this, "Timetable Saved",
