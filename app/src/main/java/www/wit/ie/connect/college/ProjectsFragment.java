@@ -156,6 +156,12 @@ public class ProjectsFragment extends Fragment {
             });
         }
     }
+    @Override
+    public void onStart()
+    {
+        new RemoteDataTask().execute();
+        super.onStart();
+    }
 
     @Override
     public void onResume() {

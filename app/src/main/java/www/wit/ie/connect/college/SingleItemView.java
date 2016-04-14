@@ -195,9 +195,8 @@ public class SingleItemView extends AppCompatActivity {
                                     public void onClick(DialogInterface dialog, int which) {
                                         // continue with delete
                                         object.deleteInBackground();
-//                                        object.saveInBackground();
-//                                        startActivity(new Intent(getBaseContext(), ProjectsFragment.class));
-//                                        finish();
+                                        startActivity(new Intent(getBaseContext(), ProjectsFragment.class));
+                                        finish();
                                     }
                                 })
                                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {

@@ -121,9 +121,9 @@ public class Timetable extends AppCompatActivity implements OnTouchListener {
 
 //                if (e == null)
 
-           /*     if (object ==  null){
-                    Toast.makeText(getApplicationContext(), "Please upload your own timetable", Toast.LENGTH_LONG).show();
-                }else {*/
+                if (object ==  null){
+                    Toast.makeText(getApplicationContext(), "Please upload your timetable here", Toast.LENGTH_LONG).show();
+                }else {
 
                     ParseFile fileObject = (ParseFile) object.get("ImageFile");
 
@@ -151,7 +151,7 @@ public class Timetable extends AppCompatActivity implements OnTouchListener {
                         }
                     });
 
-//                }
+                }
             }
         });
       /*  query.getInBackground(objectId, new GetCallback<ParseObject>() {
@@ -379,39 +379,39 @@ public class Timetable extends AppCompatActivity implements OnTouchListener {
         } else if (id == R.id.action_save_timetable) {
 
             Bitmap bitmap = ((BitmapDrawable) ivImage.getDrawable()).getBitmap();
-            // Convert it to byte
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            // Compress image to lower quality scale 1 - 100
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-            byte[] image = stream.toByteArray();
 
-            // Create the ParseFile
-            ParseFile file = new ParseFile("Timetable.png", image);
-            // Upload the image into Parse Cloud
-            file.saveInBackground();
+//            if (bitmap == null) {
+                // Convert it to byte
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                // Compress image to lower quality scale 1 - 100
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                byte[] image = stream.toByteArray();
 
-            // Create a New Class called "ImageUpload" in Parse
-            ParseObject imgupload = new ParseObject("ImageUpload");
-
-            // Create a column named "ImageName" and set the string
-            imgupload.put("ImageName", "timetable");
-            imgupload.put("belongsTo", ParseUser.getCurrentUser());
-
-            // Create a column named "ImageFile" and insert the image
-            imgupload.put("ImageFile", file);
+                // Create the ParseFile
+                ParseFile file = new ParseFile("Timetable.png", image);
+                // Upload the image into Parse Cloud
+                file.saveInBackground();
 
 
-            if (imgupload == null){
-                Toast.makeText(getApplicationContext(),"Sorry upload a file first", Toast.LENGTH_SHORT).show();
-            }else {
+                // Create a New Class called "ImageUpload" in Parse
+                ParseObject imgupload = new ParseObject("ImageUpload");
+
+                // Create a column named "ImageName" and set the string
+                imgupload.put("ImageName", "timetable");
+                imgupload.put("belongsTo", ParseUser.getCurrentUser());
+
+                // Create a column named "ImageFile" and insert the image
+                imgupload.put("ImageFile", file);
+
                 // Create the class and the columns
                 imgupload.saveInBackground();
+                // Show a simple toast message
+                Toast.makeText(Timetable.this, "Timetable Saved",
+                        Toast.LENGTH_SHORT).show();
+//            }else {
+//                Toast.makeText(getApplicationContext(), "Sorry upload timetable", Toast.LENGTH_SHORT).show();
+//            }
 
-            }
-
-            // Show a simple toast message
-            Toast.makeText(Timetable.this, "Timetable Saved",
-                    Toast.LENGTH_SHORT).show();
 
         }
 

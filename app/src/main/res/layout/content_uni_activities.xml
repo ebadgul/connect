@@ -43,6 +43,8 @@
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/activityType"
         android:layout_alignStart="@+id/activityType"
+        android:singleLine="true"
+        android:nextFocusDown="@+id/activityType"
         android:layout_below="@+id/textview" />
 
     <!--end of first one-->
@@ -85,7 +87,9 @@
         android:layout_marginTop="100dp"
         android:layout_alignStart="@+id/activityType"
         android:layout_alignEnd="@+id/activityType"
-        />
+        android:singleLine="true"
+        android:nextFocusDown="@+id/worth_input"
+        android:layout_alignParentEnd="true"/>
 
     <!-- end of 3rd one-->
     <TextView
@@ -106,6 +110,8 @@
         android:inputType="number"
         android:layout_above="@+id/etxt_fromdate"
         android:layout_alignStart="@+id/title_input"
+        android:singleLine="true"
+        android:nextFocusDown="@+id/etxt_fromdate"
         android:layout_alignParentEnd="true" />
     <!--end of 4th one-->
 
@@ -125,6 +131,8 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/textView9"
         android:layout_alignParentEnd="true"
+        android:singleLine="true"
+        android:nextFocusDown="@+id/details"
         android:layout_alignStart="@+id/worth_input" />
 
 
@@ -142,6 +150,7 @@
         android:layout_alignParentEnd="false"
         android:layout_alignParentLeft="false"
         android:layout_alignParentTop="false"
+        android:imeOptions="actionDone"
         android:editable="true"
         android:enabled="true"
         android:gravity="top" />
