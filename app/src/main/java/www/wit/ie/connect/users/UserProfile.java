@@ -322,8 +322,11 @@ public class UserProfile extends AppCompatActivity {
 
         ivImage.setImageBitmap(bm);
     }
-
-
-
-
 }
+
+/*
+references
+http://www.androidbegin.com/tutorial/android-parse-com-image-upload-tutorial/
+http://www.androidbegin.com/tutorial/android-parse-com-image-download-tutorial/
+http://stackoverflow.com/questions/6650398/android-imageview-zoom-in-and-zoom-out
+ */

@@ -202,3 +202,7 @@ public class UniActivities extends AppCompatActivity implements AdapterView.OnIt
 
     // datePicker end
 }
+/*
+reference
+http://androidopentutorials.com/android-datepickerdialog-on-edittext-click-event
+ */

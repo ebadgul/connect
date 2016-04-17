@@ -115,3 +115,7 @@ public class AutoCompleteAdapter extends ArrayAdapter<AutoCompletePlace> {
                         }, 60, TimeUnit.SECONDS);
     }
 }
+/*
+reference
+http://code.tutsplus.com/articles/google-play-services-using-the-places-api--cms-23715
+ */

@@ -78,3 +78,8 @@ public class MessageAdapter extends BaseAdapter {
         return convertView;
     }
 }
+
+/*
+reference
+https://www.sinch.com/tutorials/android-messaging-tutorial-using-sinch-and-parse/
+ */

@@ -143,6 +143,7 @@ public class ProjectsFragment extends Fragment {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     // Send single item click data to SingleItemView Class
                     Intent i = new Intent(getActivity(), SingleItemView.class);
+
                     // Pass data "name" followed by the position
                     i.putExtra("subject", ob.get(position).getString("subject").toString());
                     i.putExtra("type", ob.get(position).getString("type").toString());
@@ -157,15 +158,20 @@ public class ProjectsFragment extends Fragment {
         }
     }
     @Override
-    public void onStart()
-    {
+    public void onStart() {
+
         new RemoteDataTask().execute();
         super.onStart();
     }
 
     @Override
     public void onResume() {
-        super.onResume();
+
         new RemoteDataTask().execute();
+        super.onResume();
     }
 }
+/*
+reference
+http://www.androidbegin.com/tutorial/android-parse-com-simple-listview-tutoria
+ */

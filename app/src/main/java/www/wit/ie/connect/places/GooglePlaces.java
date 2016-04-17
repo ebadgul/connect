@@ -186,6 +186,8 @@ public class GooglePlaces extends Fragment implements GoogleApiClient.OnConnecti
         }
         if (!TextUtils.isEmpty(place.getPhoneNumber())) {
             content += "Phone: " + place.getPhoneNumber();
+
+
 //            Log.v("phonnnee", "" + place.getPhoneNumber());
 
 //            phone = (String) place.getPhoneNumber();
@@ -304,3 +306,7 @@ public class GooglePlaces extends Fragment implements GoogleApiClient.OnConnecti
         startActivity(intent);*/
 //    }
 }
+/*
+reference
+http://code.tutsplus.com/articles/google-play-services-using-the-places-api--cms-23715
+ */

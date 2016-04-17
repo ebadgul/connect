@@ -194,3 +194,7 @@ public class Login extends AppCompatActivity {
 //*******************************************************************************
 
 }
+/*
+reference
+ http://www.androidbegin.com/tutorial/android-parse-com-simple-login-and-signup-tutorial/
+ */

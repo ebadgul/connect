@@ -138,3 +138,7 @@ public class MessageService extends Service implements SinchClientListener {
     }
 }
 
+/*
+reference
+https://www.sinch.com/tutorials/android-messaging-tutorial-using-sinch-and-parse/
+ */

@@ -391,13 +391,11 @@ public class Timetable extends AppCompatActivity implements OnTouchListener {
                 ParseFile file = new ParseFile("Timetable.png", image);
                 // Upload the image into Parse Cloud
                 file.saveInBackground();
-
-
                 // Create a New Class called "ImageUpload" in Parse
                 ParseObject imgupload = new ParseObject("ImageUpload");
-
                 // Create a column named "ImageName" and set the string
                 imgupload.put("ImageName", "timetable");
+                //get the current user and assign the timetable to it.
                 imgupload.put("belongsTo", ParseUser.getCurrentUser());
 
                 // Create a column named "ImageFile" and insert the image
@@ -542,3 +540,9 @@ public class Timetable extends AppCompatActivity implements OnTouchListener {
 
 //    ****************************************************************************************
 }
+/*
+references
+http://www.androidbegin.com/tutorial/android-parse-com-image-upload-tutorial/
+http://www.androidbegin.com/tutorial/android-parse-com-image-download-tutorial/
+http://stackoverflow.com/questions/6650398/android-imageview-zoom-in-and-zoom-out
+ */

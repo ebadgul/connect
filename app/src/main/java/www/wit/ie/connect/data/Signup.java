@@ -76,7 +76,6 @@ public class Signup extends AppCompatActivity {
         email.addTextChangedListener(new MyTextWatcher(email));
         password.addTextChangedListener(new MyTextWatcher(password));
 
-
         signupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -230,3 +229,7 @@ private void submitForm() {
 
 //*******************************************************************************
 }
+/*
+reference
+ http://www.androidbegin.com/tutorial/android-parse-com-simple-login-and-signup-tutorial/
+ */

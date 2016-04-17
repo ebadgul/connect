@@ -1,6 +1,8 @@
 package www.wit.ie.connect.college;
 
 import android.app.AlertDialog;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -195,7 +197,15 @@ public class SingleItemView extends AppCompatActivity {
                                     public void onClick(DialogInterface dialog, int which) {
                                         // continue with delete
                                         object.deleteInBackground();
-                                        startActivity(new Intent(getBaseContext(), ProjectsFragment.class));
+
+                                        Fragment nf = new Fragment();
+                                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                                        transaction.replace(R.id.activity_single_item_view, nf);
+                                        transaction.addToBackStack(null);
+                                        transaction.commit();
+
+
+//                                        startActivity(new Intent(getBaseContext(), ProjectsFragment.class));
                                         finish();
                                     }
                                 })
@@ -221,7 +231,8 @@ public class SingleItemView extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-
-
 }
+/*
+reference
+http://www.androidbegin.com/tutorial/android-parse-com-simple-listview-tutoria
+ */

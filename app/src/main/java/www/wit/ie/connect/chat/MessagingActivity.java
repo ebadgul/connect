@@ -178,4 +178,7 @@ public class MessagingActivity extends AppCompatActivity {
     }
 }
 
-
+/*
+reference
+https://www.sinch.com/tutorials/android-messaging-tutorial-using-sinch-and-parse/
+ */

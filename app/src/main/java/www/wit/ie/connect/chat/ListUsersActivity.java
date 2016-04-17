@@ -66,7 +66,6 @@ public class ListUsersActivity extends Fragment {
                     for (int i = 0; i < userList.size(); i++) {
                         names.add(userList.get(i).getUsername().toString());
                     }
-
                     usersListView = (ListView) getView().findViewById(R.id.usersListView);
                     namesArrayAdapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.user_list_item, names);
                     usersListView.setAdapter(namesArrayAdapter);
@@ -122,8 +121,18 @@ public class ListUsersActivity extends Fragment {
         LocalBroadcastManager.getInstance(this.getActivity()).registerReceiver(receiver, new IntentFilter("www.wit.ie.connect.chat.ListUsersActivity"));
     }
 
+    public void onStart(){
+        setConversationsList();
+        super.onStart();
+    }
+
     public void onResume() {
         setConversationsList();
         super.onResume();
     }
 }
+
+/*
+reference
+https://www.sinch.com/tutorials/android-messaging-tutorial-using-sinch-and-parse/
+ */

@@ -28,3 +28,7 @@ public class AutoCompletePlace {
         this.id = id;
     }
 }
+/*
+reference
+http://code.tutsplus.com/articles/google-play-services-using-the-places-api--cms-23715
+ */
