@@ -101,7 +101,7 @@
 
         <activity
             android:name="chat.MessagingActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".chat.MessageAdapter"
             android:label="@string/title_activity_message_adapter"
@@ -137,7 +137,7 @@
         <activity
             android:name=".college.Testing"
             android:label="@string/title_activity_testing"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
