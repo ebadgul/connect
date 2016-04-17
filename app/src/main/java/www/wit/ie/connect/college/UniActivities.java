@@ -177,7 +177,7 @@ public class UniActivities extends AppCompatActivity implements AdapterView.OnIt
         fromDateEtxt.requestFocus();
 
     }
-
+//*******************code from androidopentutorials start***********************
     private void setDateTimeField() {
         fromDateEtxt.setOnClickListener(this);
 
@@ -199,7 +199,7 @@ public class UniActivities extends AppCompatActivity implements AdapterView.OnIt
             fromDatePickerDialog.show();
         }
     }
-
+//*******************code from androidopentutorials end***********************
     // datePicker end
 }
 /*

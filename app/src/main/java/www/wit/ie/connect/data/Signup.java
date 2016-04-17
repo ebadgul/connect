@@ -133,7 +133,7 @@ public class Signup extends AppCompatActivity {
         stopService(new Intent(this, MessageService.class));
         super.onDestroy();
     }
-//*******************************************************************************
+//*****************code start from androidbegin**************************************************************
 private void submitForm() {
     if (!validateName()) {
         return;
@@ -227,7 +227,7 @@ private void submitForm() {
         }
     }
 
-//*******************************************************************************
+//***********************code end from androidbegin********************************************************
 }
 /*
 reference

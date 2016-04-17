@@ -76,5 +76,6 @@ public class MessageAdapter extends BaseAdapter {
 
 /*
 reference
+all this code came from the following website
 https://www.sinch.com/tutorials/android-messaging-tutorial-using-sinch-and-parse/
  */

@@ -122,7 +122,7 @@ public class Login extends AppCompatActivity {
         startActivity(intent);
     }
 
-    //*******************************************************************************
+    //********************code start from androidbegin***********************************************************
     private void submitForm() {
         if (!validateName()) {
             return;
@@ -191,7 +191,7 @@ public class Login extends AppCompatActivity {
         }
     }
 
-//*******************************************************************************
+//**********************code end from androidbegin*********************************************************
 
 }
 /*

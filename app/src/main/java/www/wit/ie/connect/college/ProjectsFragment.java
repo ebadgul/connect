@@ -91,7 +91,7 @@ public class ProjectsFragment extends Fragment {
             // Show progressdialog
             mProgressDialog.hide();
         }
-
+//code from online start referenced at the bottom
         @Override
         protected Void doInBackground(Void... params) {
             // Locate the class table named "Country" in Parse.com
@@ -110,7 +110,7 @@ public class ProjectsFragment extends Fragment {
             }
             return null;
         }
-
+        //code from online end referenced at the bottom
         @Override
         protected void onPostExecute(Void result) {
             // Locate the listview in listview_main.xml

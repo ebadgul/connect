@@ -30,5 +30,6 @@ public class AutoCompletePlace {
 }
 /*
 reference
+code from the following site
 http://code.tutsplus.com/articles/google-play-services-using-the-places-api--cms-23715
  */

@@ -187,7 +187,7 @@ public class Timetable extends AppCompatActivity implements OnTouchListener {
         });*/
 
 
-        //******************************************************************************************
+        //***************code from stackoverflow***************************************************************************
         ivImage = (ImageView) findViewById(R.id.ivImage);
 
         zoom = (ZoomControls) findViewById(R.id.zoomControls);
@@ -220,7 +220,7 @@ public class Timetable extends AppCompatActivity implements OnTouchListener {
             }
         });
 
-//      *********************************************************************
+//      ****************end of code from satackoverflow*****************************************************
         ivImage.setOnTouchListener(this);
 //      *********************************************************************
 
@@ -270,7 +270,7 @@ public class Timetable extends AppCompatActivity implements OnTouchListener {
     }
 //      *********************************************************************
 //      *********************************************************************
-
+//    ***************code from androidbegin start*************************************************************************
     private void selectImage() {
         final CharSequence[] items = {"Take Photo", "Choose from Library",
                 "Cancel"};
@@ -416,8 +416,8 @@ public class Timetable extends AppCompatActivity implements OnTouchListener {
 
         return super.onOptionsItemSelected(item);
     }
-
-//    ****************************************************************************************
+//    ***************code from androidbegin end*************************************************************************
+//    ***************code from stackoverflow start*************************************************************************
 
 
     public boolean onTouch(View v, MotionEvent event) {
@@ -538,7 +538,7 @@ public class Timetable extends AppCompatActivity implements OnTouchListener {
     }
 
 
-//    ****************************************************************************************
+//    *********************code from stackoverflow end*******************************************************************
 }
 /*
 references

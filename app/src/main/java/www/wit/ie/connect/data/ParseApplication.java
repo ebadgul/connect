@@ -32,3 +32,4 @@ public class ParseApplication extends MultiDexApplication {
 
     }
 }
+//from parse.com android guide
