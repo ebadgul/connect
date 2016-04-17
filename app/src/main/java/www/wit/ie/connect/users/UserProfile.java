@@ -71,7 +71,7 @@ public class UserProfile extends AppCompatActivity {
 
 
         final FloatingActionButton fb = (FloatingActionButton) findViewById(R.id.uploadPhoto);
-//        ivImage = (ImageView) findViewById(R.id.uploadProfilePhoto);
+        ivImage = (ImageView) findViewById(R.id.uploadProfilePhoto);
         fb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,20 +91,25 @@ public class UserProfile extends AppCompatActivity {
             @Override
             public void done(ParseObject parseObject, ParseException e) {
 
-                ParseFile file = (ParseFile) parseObject.get("ImageFile");
-                file.getDataInBackground(new GetDataCallback() {
-                    @Override
-                    public void done(byte[] bytes, ParseException e) {
+                if (parseObject == null){
+                    Log.v("user profile photo", "Photo");
+                }else {
 
-                        if (e == null){
-                            Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                            ivImage = (ImageView) findViewById(R.id.uploadProfilePhoto);
-                            ivImage.setImageBitmap(bmp);
-                        }else {
-                            Log.v("Testing", "there was a problem");
+                    ParseFile file = (ParseFile) parseObject.get("ImageFile");
+                    file.getDataInBackground(new GetDataCallback() {
+                        @Override
+                        public void done(byte[] bytes, ParseException e) {
+
+                            if (e == null) {
+                                Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                                ivImage = (ImageView) findViewById(R.id.uploadProfilePhoto);
+                                ivImage.setImageBitmap(bmp);
+                            } else {
+                                Log.v("Testing", "there was a problem");
+                            }
                         }
-                    }
-                });
+                    });
+                }
             }
         });
 

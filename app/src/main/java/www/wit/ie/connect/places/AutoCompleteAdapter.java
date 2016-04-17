@@ -67,7 +67,7 @@ public class AutoCompleteAdapter extends ArrayAdapter<AutoCompletePlace> {
             protected FilterResults performFiltering(CharSequence constraint) {
 
                 if (mGoogleApiClient == null || !mGoogleApiClient.isConnected()) {
-                    Toast.makeText(getContext(), "Not connected", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getContext(), "Not connected", Toast.LENGTH_SHORT).show();
                     return null;
                 }
 
