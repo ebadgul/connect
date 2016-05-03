@@ -38,6 +38,8 @@ public class SingleItemView extends AppCompatActivity {
 
     private Button _saveChanges;
     final ParseObject currentUser = new ParseObject("connect");
+    private String objectId;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +66,8 @@ public class SingleItemView extends AppCompatActivity {
 
 
 
+
+
         txtname.setText(_name);
         txtType.setText(_type);
         title.setText(_title);
@@ -77,12 +81,98 @@ public class SingleItemView extends AppCompatActivity {
 //        String subject = currentUser.getString("suject");
 
 
-//        txtname.setText(subject);
+
 
 
         _saveChanges.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ParseQuery<ParseObject> query = ParseQuery.getQuery("connect");
+                query.whereEqualTo("createdBy", ParseUser.getCurrentUser());
+                query.getFirstInBackground(new GetCallback<ParseObject>() {
+                    @Override
+                    public void done(ParseObject parseObject, ParseException e) {
+
+                        parseObject.put("subject", txtname.getText().toString());
+                        parseObject.put("type", txtType.getText().toString());
+                        parseObject.put("title", title.getText().toString());
+                        parseObject.put("worth", worth.getText().toString());
+                        parseObject.put("duedate", duedate.getText().toString());
+                        parseObject.put("details", details.getText().toString());
+
+                        parseObject.saveInBackground();
+                        Toast.makeText(getApplicationContext(), "Changes Saved", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
+
+            }
+        });
+
+
+
+
+
+
+     /*   _saveChanges.setOnClickListener(new View.OnClickListener(){
+
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("connect");
+
+//           ParseObject dataObject = new ParseObject("connect");
+            Intent sIntent = getIntent();
+            ParseObject dataObject = new ParseObject("connect");
+
+            @Override
+            public void onClick(View v) {
+
+                final String objectId = sIntent.getStringExtra("objectId");
+
+
+                query.getInBackground(objectId, new GetCallback<ParseObject>() {
+                    @Override
+                    public void done(ParseObject parseObject, ParseException e) {
+
+                        Log.d("all1",""+dataObject);
+                        Log.d("all2",""+query);
+                        Log.d("all3",""+objectId);
+                        Log.d("all4",""+sIntent);
+
+                        parseObject.put("subject", txtname.getText().toString());
+                        parseObject.put("type", txtType.getText().toString());
+                        parseObject.put("title", title.getText().toString());
+                        parseObject.put("worth", worth.getText().toString());
+                        parseObject.put("duedate", duedate.getText().toString());
+                        parseObject.put("details", details.getText().toString());
+
+                        parseObject.saveInBackground();
+                        Toast.makeText(getApplicationContext(), "Changes Saved", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
+            }
+        });*/
+
+
+// Retrieve the object by id
+/*        query.getInBackground("xWMyZ4YEGZ", new GetCallback<ParseObject>() {
+            public void done(ParseObject gameScore, ParseException e) {
+                if (e == null) {
+                    // Now let's update it with some new data. In this case, only cheatMode and score
+                    // will get sent to the Parse Cloud. playerName hasn't changed.
+                    gameScore.put("score", 1338);
+                    gameScore.put("cheatMode", true);
+                    gameScore.saveInBackground();
+                }
+            }
+        });*/
+
+
+    /*    _saveChanges.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
 
                 currentUser.put("subject", txtname.getText().toString());
                 currentUser.put("type", txtType.getText().toString());
@@ -96,7 +186,7 @@ public class SingleItemView extends AppCompatActivity {
 
             }
 
-        });
+        });*/
 
 
         /*Button _delete = (Button) findViewById(R.id.deleteBtnS);
